@@ -1,0 +1,23 @@
+{
+  "name": "eae",
+  "version": "1.0.0",
+  "description": "工程雏形",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "plop": "^2.7.4"
+  },
+  "scripts": {
+    "new": "plop"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/songyijian/EAE.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/songyijian/EAE/issues"
+  },
+  "homepage": "https://github.com/songyijian/EAE#readme"
+}
