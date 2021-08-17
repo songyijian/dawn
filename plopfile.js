@@ -5,6 +5,13 @@
  * @Date: 2021-08-13 15:41:29
  */
 
+const data = {
+  packageName: "", // (eae) 
+  version: "1.0.0", // (1.0.0)
+  keywords: "", // 
+}
+
+
 const test = {
   description: 'Polp create file',
   prompts: [
@@ -14,7 +21,7 @@ const test = {
       message: 'create name' // 提示信息
     }
   ],
-  actions(data) {
+  actions (data) {
     const { fileName } = data
     const config = []
 
