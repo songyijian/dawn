@@ -9,8 +9,8 @@ import fs from 'fs-extra'
 import ejs from 'ejs'
 import inquirer from 'inquirer'
 
+// 分类
 export function createType() {
-  // 只能选中一个
   const config = [
     {
       type: 'list',
@@ -22,6 +22,7 @@ export function createType() {
   return inquirer.prompt(config)
 }
 
+// 每类项目的输入配置
 export function configIng() {
   const config = [{ type: 'input', message: '项目名:', name: 'jobName' }, {}]
   return inquirer.prompt(config)
