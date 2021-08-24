@@ -5,11 +5,9 @@ const json = require("rollup-plugin-json");
 const resolve = require("rollup-plugin-node-resolve");
 const package = require("../package");
 
-const resolveFile = function (...dir) {
-  return path.join(__dirname, `../`, ...dir);
-};
-const moduleName = (pname = package.name);
-const pversion = package.version;
+// const {pname,pversion} = package.name;
+const resolveFile = (...dir) => path.join(__dirname, `../`, ...dir);
+const moduleName = "<%= moduleName %>";
 
 const plugins = [
   commonjs(),
@@ -27,28 +25,28 @@ module.exports = [
     input: resolveFile("./src/index.js"),
     output: [
       {
-        file: resolveFile(`dist/index.js`),
+        file: resolveFile(`dist/${moduleName}.cjs.js`),
         format: "cjs",
       },
     ],
     plugins,
   },
-  // {
-  //   input: resolveFile("./src/index.js"),
-  //   output: [
-  //     {
-  //       file: resolveFile(`dist/${pname}.umd.js`),
-  //       name: moduleName,
-  //       format: "umd",
-  //     },
-  //   ],
-  //   plugins,
-  // },
   {
     input: resolveFile("./src/index.js"),
     output: [
       {
-        file: resolveFile(`dist/${pname}.iife.js`),
+        file: resolveFile(`dist/${moduleName}.umd.js`),
+        name: moduleName,
+        format: "umd",
+      },
+    ],
+    plugins,
+  },
+  {
+    input: resolveFile("./src/index.js"),
+    output: [
+      {
+        file: resolveFile(`dist/${moduleName}.iife.js`),
         name: moduleName,
         format: "iife",
       },

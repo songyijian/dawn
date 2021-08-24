@@ -7,17 +7,10 @@ import livereload from "rollup-plugin-livereload";
 import replace from "rollup-plugin-replace";
 const clear = require("rollup-plugin-clear");
 
-const resolve = function (...dir) {
-  return path.join(__dirname, `../`, ...dir);
-};
-
 const host = "localhost";
 const port = 2000;
 const openPage = `http://${host}:${2000}/demo/index.html`;
-
-setTimeout(() => {
-  console.log(`> ${openPage}`);
-}, 800);
+setTimeout((_) => console.log(`> ${openPage}`), 800);
 
 configList.map((config, index) => {
   config.output.sourcemap = true;
