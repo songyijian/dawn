@@ -20,24 +20,30 @@ module.exports = {
     {
       name: "name",
       type: "text",
-      message: "Project name",
+      message: "npm项目名称",
+    },
+    {
+      name: "moduleName",
+      type: "text",
+      message: "iife导出包名",
+      initial: "",
     },
     {
       name: "description",
       type: "text",
-      message: "Project description",
+      message: "项目说明",
       initial: "Awesome npm apps.",
     },
     {
       name: "githubUrl",
       type: "text",
-      message: "Project githubUrl",
-      initial: "Awesome npm apps.",
+      message: "github url",
+      initial: "",
     },
     {
       name: "install",
       type: "confirm",
-      message: "Install dependencies",
+      message: "安装依赖项",
       initial: true,
     },
     {

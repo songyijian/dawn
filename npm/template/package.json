@@ -2,7 +2,7 @@
   "name": "<%= name %>",
   "version": "0.1.0",
   "description": "<%= description %>",
-  "main": "./dist/index.js",
+  "main": "./src/index.js",
   "keywords": [
     "<%= name %>"
   ],
