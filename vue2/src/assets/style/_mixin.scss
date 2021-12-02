@@ -1,0 +1,26 @@
+@mixin btn($bg: #1dcf9f, $color: #fff) {
+  font-size: 100%;
+  border-radius: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+
+  height: 48px;
+  background: $bg;
+  color: $color;
+  border-radius: 12px;
+  width: 100%;
+  font-family: Rubik-Medium;
+  font-size: 14px;
+  color: #ffffff;
+  text-align: center;
+  font-weight: bold;
+
+  &[disabled='disabled'] {
+    background-color: rgba($color: $bg, $alpha: 0.6);
+  }
+}
+
+$opay-color: #1dcf9f;
