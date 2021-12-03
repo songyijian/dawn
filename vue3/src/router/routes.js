@@ -4,34 +4,77 @@
  * @Version: 0.1.0
  * @Date: 2021-12-01 11:36:58
  */
-const home = () => import('@/pages/home.vue')
-const login = () => import('@/pages/login/index.vue')
 const page404 = () => import('@/pages/404.vue')
 const layout = () => import('@/pages/layout/index.vue')
 
-const routes = [
+export const asyncRouterMap = [
   {
-    path: '/',
+    path: '/business',
+    name: 'business',
+    meta: { title: '商家管理' },
     component: layout,
-    meta: { title: '' },
     children: [
       {
-        path: '/home',
-        name: 'home',
-        meta: { title: 'home' },
-        component: home
+        path: 'list',
+        name: 'business list',
+        meta: { title: 'business list' },
+        component: () => import('@/pages/business/list.vue')
+      },
+      {
+        path: 'frozen',
+        name: 'business frozen',
+        meta: { title: 'business frozen' },
+        component: () => import('@/pages/business/frozen.vue')
+      },
+      {
+        path: 'settled',
+        name: 'business settled',
+        meta: { title: 'business settled' },
+        component: () => import('@/pages/business/settled.vue')
       }
     ]
   },
   {
-    path: '/login',
-    name: 'login',
-    component: login
+    path: '/KYC',
+    name: 'KYC',
+    meta: { title: 'KYC管理' },
+    component: layout,
+    children: [
+      {
+        path: 'list',
+        name: 'KYC list',
+        meta: { title: 'KYC list' },
+        component: () => import('@/pages/kYC/list.vue')
+      }
+    ]
   },
+  {
+    path: '/power',
+    name: 'power',
+    meta: { title: '权限管理' },
+    component: layout,
+    children: [
+      {
+        path: 'userlist',
+        name: 'userlist',
+        meta: { title: 'userlist' },
+        component: () => import('@/pages/power/userList.vue')
+      }
+    ]
+  }
+]
+
+const routes = [
+  {
+    path: '',
+    redirect: '/business/list'
+  },
+  ...asyncRouterMap,
   {
     path: '/:catchAll(.*)',
     name: '404',
     component: page404
   }
 ]
+
 export default routes

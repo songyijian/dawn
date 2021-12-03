@@ -5,13 +5,13 @@
  * @Date: 2021-12-01 18:13:11
 -->
 <template>
-  <el-container>
-    <el-aside width="200px">Aside</el-aside>
+  <el-container class="layout-box">
+    <el-aside width="200px"><Aside></Aside></el-aside>
     <el-container>
-      <el-header>Header</el-header>
+      <el-header><Header></Header></el-header>
       <el-main class="layout-mian">
         <router-view></router-view>
-        <el-row v-loading="loding" class="global-loading" />
+        <el-row v-loading="loding" v-if="loding" class="global-loading" />
       </el-main>
     </el-container>
   </el-container>
@@ -19,13 +19,18 @@
 
 <script setup>
 import { useStore } from 'vuex'
+import Aside from '@/pages/layout/Aside.vue'
+import Header from '@/pages/layout/Header.vue'
+
 const store = useStore()
 const loding = store.state.ajaxLoding
 </script>
 
 <style lang="scss" scoped>
+.layout-box {
+  min-height: 100vh;
+}
 .layout-mian {
-  border: 1px solid red;
   position: relative;
 
   :deep(.global-loading) {
@@ -34,7 +39,6 @@ const loding = store.state.ajaxLoding
     left: 0;
     height: 100%;
     width: 100%;
-
     .el-loading-mask {
       background-color: rgba(255, 255, 255, 0.3);
     }
@@ -42,8 +46,7 @@ const loding = store.state.ajaxLoding
 }
 
 .el-header {
-  background-color: #b3c0d1;
-  color: var(--el-text-color-primary);
+  background-color: $opay-color;
 }
 
 .el-aside {
@@ -54,10 +57,5 @@ const loding = store.state.ajaxLoding
 .el-main {
   background-color: #e9eef3;
   color: var(--el-text-color-primary);
-  text-align: center;
-}
-
-body > .el-container {
-  height: 100vh;
 }
 </style>

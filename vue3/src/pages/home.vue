@@ -3,6 +3,7 @@
   <p>{{ data.age }}</p>
   <p>{{ data.info }}</p>
   <button @click="change">加一岁</button>
+  <div class="lang"></div>
 </template>
 
 <script>
@@ -38,5 +39,8 @@ export default {
 p {
   border: 1px solid red;
   background: $opay-color;
+}
+.lang {
+  height: 2000px;
 }
 </style>
