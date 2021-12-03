@@ -22,4 +22,6 @@ class Logger {
   }
 }
 
+const qfn = () => Object.defineProperty()
+
 export const logger = fn => new Logger(fn)

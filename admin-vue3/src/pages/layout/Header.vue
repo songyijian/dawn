@@ -4,10 +4,30 @@
  * @Version: 0.1.0
  * @Date: 2021-12-02 20:29:01
 -->
-<template></template>
+<template>
+  <div>
+    <el-avatar>user</el-avatar>
+    <span @click="logout">登出</span>
+  </div>
+</template>
 
-<script>
-export default {}
+<script setup>
+import { useStore } from 'vuex'
+
+const store = useStore()
+const userData = store.state.userInfo
+const logout = () => alert('登出')
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+div {
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: right;
+  align-items: center;
+  & > * {
+    margin-left: 1em;
+  }
+}
+</style>
