@@ -8,6 +8,11 @@
 import store from '@/store/index.js'
 import { GET_tree } from '@/api/index.js'
 
-GET_tree().then(res => {
-  store.commit('SET_USER_INFO', res)
-})
+// GET_tree().then(res => {
+//   store.commit('SET_USER_INFO', res)
+// })
+
+
+
+
+store.commit('SET_USER_INFO', [])

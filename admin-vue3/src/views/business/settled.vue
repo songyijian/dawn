@@ -6,6 +6,8 @@
 -->
 <template>入驻</template>
 
-<script setup></script>
+<script setup>
+
+</script>
 
 <style lang="scss" scoped></style>

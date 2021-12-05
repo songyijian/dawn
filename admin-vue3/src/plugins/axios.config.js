@@ -1,8 +1,8 @@
-import { logger } from './tools'
+import { logger } from '@/utils/tools'
 import store from '@/store/index.js'
 import { ElMessage } from 'element-plus'
 
-const loginRedirect = () => {} //(location.href = `https://sso-new.opayweb.com/login?redirectUrl=${encodeURI(location.href)}`)
+const loginRedirect = () => { } //(location.href = `https://sso-new.opayweb.com/login?redirectUrl=${encodeURI(location.href)}`)
 const lodingCount = logger(n => store.commit('SET_AJAX_LODING', !!n))
 
 const request = config => {

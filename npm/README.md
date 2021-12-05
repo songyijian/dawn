@@ -40,7 +40,7 @@ $ npm test # or `yarn test`
 
 ## Related
 
-- [zce/caz](https://github.com/zce/caz) - A simple yet powerful template-based Scaffolding tools.
+- [zce/caz](https://github.com/zce/caz) - A simple yet roleful template-based Scaffolding tools.
 
 ## Contributing
 
@@ -56,8 +56,6 @@ $ npm test # or `yarn test`
 ## License
 
 [MIT](LICENSE) &copy; [yijian.song](https://github.com/songyijian)
-
-
 
 [travis-img]: https://img.shields.io/travis/com/caz-templates/npm1
 [travis-url]: https://travis-ci.com/caz-templates/npm1

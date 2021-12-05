@@ -5,7 +5,7 @@
  * @Date: 2021-12-02 16:08:38
  */
 
-import axios from '@/utils/axios.js'
+import axios from '@/plugins/axios.js'
 
 export const GET_tree = () => axios.get('/api/manage/sys/menu/tree')
 

@@ -6,7 +6,9 @@
 -->
 <template>
   <el-container class="layout-box">
-    <el-aside width="200px"><Aside></Aside></el-aside>
+    <el-aside width="200px">
+      <!-- <Aside></Aside> -->
+      </el-aside>
     <el-container>
       <el-header><Header></Header></el-header>
       <el-main class="layout-mian">
@@ -19,8 +21,8 @@
 
 <script setup>
 import { useStore } from 'vuex'
-import Aside from '@/pages/layout/Aside.vue'
-import Header from '@/pages/layout/Header.vue'
+// import Aside from '@/views/layout/Aside.vue'
+import Header from '@/views/layout/Header.vue'
 
 const store = useStore()
 const loding = store.state.ajaxLoding

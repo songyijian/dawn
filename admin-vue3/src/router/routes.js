@@ -4,72 +4,84 @@
  * @Version: 0.1.0
  * @Date: 2021-12-01 11:36:58
  */
-const page404 = () => import('@/pages/404.vue')
-const layout = () => import('@/pages/layout/index.vue')
+const page404 = () => import('@/views/error/404.vue')
+const page403 = () => import('@/views/error/403.vue')
+const layout = () => import('@/views/layout/index.vue')
+const RouterBox = () => import('@/components/RouterBox.vue')
 
 export const asyncRouterMap = [
   {
-    path: '/business',
-    name: 'business',
-    meta: { title: '商家管理' },
+    path: '/',
     component: layout,
+    // redirect: '/business/list',
     children: [
+      { path: '', redirect: '/business/list' },
       {
-        path: 'list',
-        name: 'business list',
-        meta: { title: 'business list' },
-        component: () => import('@/pages/business/list.vue')
+        path: 'business',
+        component: RouterBox, //() => import('@/views/business/index.vue'),
+        children: [
+          { path: '', redirect: '/business/list' },
+          {
+            path: 'list',
+            name: 'list',
+            meta: { title: 'business list' },
+            component: () => import('@/views/business/list.vue')
+          },
+          {
+            path: 'frozen',
+            name: 'frozen',
+            meta: { title: 'business frozen' },
+            component: () => import('@/views/business/frozen.vue')
+          },
+          {
+            path: 'settled',
+            name: 'settled',
+            meta: { title: 'business settled' },
+            component: () => import('@/views/business/settled.vue')
+          }
+        ]
       },
       {
-        path: 'frozen',
-        name: 'business frozen',
-        meta: { title: 'business frozen' },
-        component: () => import('@/pages/business/frozen.vue')
+        path: 'KYC',
+        name: 'KYC',
+        meta: { title: 'KYC管理' },
+        component: RouterBox,
+        children: [
+          { path: '', redirect: '/KYC/list' },
+          {
+            path: 'list',
+            name: 'list',
+            meta: { title: 'KYC list' },
+            component: () => import('@/views/kYC/list.vue')
+          }
+        ]
       },
-      {
-        path: 'settled',
-        name: 'business settled',
-        meta: { title: 'business settled' },
-        component: () => import('@/pages/business/settled.vue')
-      }
+      // {
+      //   path: '',
+      //   name: 'role',
+      //   meta: { title: '权限管理' },
+      //   component: RouterBox,
+      //   children: [
+      //     { path: '', redirect: '/role/userlist' },
+      //     {
+      //       path: 'userlist',
+      //       name: 'userlist',
+      //       meta: { title: 'userlist' },
+      //       component: () => import('@/views/role/userList.vue')
+      //     }
+      //   ]
+      // }
     ]
   },
-  {
-    path: '/KYC',
-    name: 'KYC',
-    meta: { title: 'KYC管理' },
-    component: layout,
-    children: [
-      {
-        path: 'list',
-        name: 'KYC list',
-        meta: { title: 'KYC list' },
-        component: () => import('@/pages/kYC/list.vue')
-      }
-    ]
-  },
-  {
-    path: '/power',
-    name: 'power',
-    meta: { title: '权限管理' },
-    component: layout,
-    children: [
-      {
-        path: 'userlist',
-        name: 'userlist',
-        meta: { title: 'userlist' },
-        component: () => import('@/pages/power/userList.vue')
-      }
-    ]
-  }
 ]
 
 const routes = [
-  {
-    path: '',
-    redirect: '/business/list'
-  },
   ...asyncRouterMap,
+  {
+    path: '/403',
+    name: '403',
+    component: page403
+  },
   {
     path: '/:catchAll(.*)',
     name: '404',
