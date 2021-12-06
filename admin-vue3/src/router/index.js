@@ -12,20 +12,22 @@ const router = createRouter({
   routes
 })
 
-/**
- * 路由守卫
- */
-router.beforeEach(guard => {
-  // beforeEach.checkAuth(guard, router)
-  console.log('router.guard', guard)
-})
+// /**
+//  * 路由守卫
+//  */
+// router.beforeEach((to, from, next) => {
+//   // beforeEach.checkAuth(to, router)
+//   console.log('router.guard', to)
 
-/**
- * 路由错误回调
- */
-router.onError(handler => {
-  console.log('router.onError', handler)
-  // console.log('error:', handler)
-})
+//   next()
+// })
+
+// /**
+//  * 路由错误回调
+//  */
+// router.onError(handler => {
+//   console.log('router.onError', handler)
+//   // console.log('error:', handler)
+// })
 
 export default router

@@ -7,86 +7,99 @@
 const page404 = () => import('@/views/error/404.vue')
 const page403 = () => import('@/views/error/403.vue')
 const layout = () => import('@/views/layout/index.vue')
-const RouterBox = () => import('@/components/RouterBox.vue')
 
 export const asyncRouterMap = [
   {
-    path: '/',
+    path: '/business',
+    name: 'business',
+    meta: { title: 'business', menu: true },
     component: layout,
-    // redirect: '/business/list',
     children: [
-      { path: '', redirect: '/business/list' },
-      {
-        path: 'business',
-        component: RouterBox, //() => import('@/views/business/index.vue'),
-        children: [
-          { path: '', redirect: '/business/list' },
-          {
-            path: 'list',
-            name: 'list',
-            meta: { title: 'business list' },
-            component: () => import('@/views/business/list.vue')
-          },
-          {
-            path: 'frozen',
-            name: 'frozen',
-            meta: { title: 'business frozen' },
-            component: () => import('@/views/business/frozen.vue')
-          },
-          {
-            path: 'settled',
-            name: 'settled',
-            meta: { title: 'business settled' },
-            component: () => import('@/views/business/settled.vue')
-          }
-        ]
-      },
-      {
-        path: 'KYC',
-        name: 'KYC',
-        meta: { title: 'KYC管理' },
-        component: RouterBox,
-        children: [
-          { path: '', redirect: '/KYC/list' },
-          {
-            path: 'list',
-            name: 'list',
-            meta: { title: 'KYC list' },
-            component: () => import('@/views/kYC/list.vue')
-          }
-        ]
-      },
+      { path: '', redirect: '/business/list', meta: { title: 'business', menu: false } },
       // {
-      //   path: '',
-      //   name: 'role',
-      //   meta: { title: '权限管理' },
-      //   component: RouterBox,
+      //   path: 'test',
+      //   name: 'businessTest',
+      //   meta: { title: 'business test', menu: true },
+      //   component: () => import('@/views/business/mylist.vue'),
       //   children: [
-      //     { path: '', redirect: '/role/userlist' },
       //     {
-      //       path: 'userlist',
-      //       name: 'userlist',
-      //       meta: { title: 'userlist' },
-      //       component: () => import('@/views/role/userList.vue')
+      //       path: 'test_list',
+      //       name: 'businessList',
+      //       meta: { title: 'business list', menu: true },
+      //       component: () => import('@/views/business/mylist.vue')
       //     }
       //   ]
-      // }
+      // },
+      {
+        path: 'list',
+        name: 'businessList',
+        meta: { title: 'business list', menu: true },
+        component: () => import('@/views/business/mylist.vue')
+      },
+      {
+        path: 'frozen',
+        name: 'businessFrozen',
+        meta: { title: 'Frozen merchant accounts', menu: true },
+        component: () => import('@/views/business/frozen.vue')
+      },
+      {
+        path: 'settled',
+        name: 'businessSettled',
+        meta: { title: 'business settled', menu: true },
+        component: () => import('@/views/business/settled.vue')
+      }
     ]
   },
+  {
+    path: '/KYC',
+    name: 'KYC',
+    meta: { title: 'KYC管理', menu: true },
+    component: layout,
+    children: [
+      { path: '', redirect: '/KYC/list', meta: { title: 'KYC list', menu: false } },
+      {
+        path: 'list',
+        name: 'KYClist',
+        meta: { title: 'KYC list', menu: true },
+        component: () => import('@/views/kYC/list.vue')
+      }
+    ]
+  },
+  {
+    path: '/role',
+    name: 'role',
+    meta: { title: '权限管理', menu: true },
+    component: layout,
+    children: [
+      { path: '', redirect: '/role/userlist', meta: { title: 'userlist', menu: false } },
+      {
+        path: 'userlist',
+        name: 'roleUserlist',
+        meta: { title: 'userlist', menu: true },
+        component: () => import('@/views/role/userList.vue')
+      }
+    ]
+  }
 ]
 
-const routes = [
-  ...asyncRouterMap,
+export const defaultRouter = [
+  { path: '', redirect: '/403', meta: { title: '403', menu: false } },
   {
     path: '/403',
     name: '403',
+    meta: { title: '403', menu: false },
+    hidden: true,
     component: page403
   },
   {
     path: '/:catchAll(.*)',
     name: '404',
+    meta: { title: '404', menu: false },
+    hidden: true,
     component: page404
   }
 ]
 
-export default routes
+export const allRouter = [...defaultRouter, ...asyncRouterMap]
+
+export default defaultRouter

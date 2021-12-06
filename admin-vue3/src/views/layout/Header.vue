@@ -6,17 +6,27 @@
 -->
 <template>
   <div>
-    <el-avatar>user</el-avatar>
+    {{ $store.state.userInfo.name }}
     <span @click="logout">登出</span>
   </div>
 </template>
 
 <script setup>
+import { GET_logout } from '@/api'
+import { loginRedirect } from '@/plugins/axios'
 import { useStore } from 'vuex'
-
+// import {  } from '@/store'
 const store = useStore()
-const userData = store.state.userInfo
-const logout = () => alert('登出')
+
+const logout = async () => {
+  const { code } = await GET_logout()
+  if (!code) {
+    store.commit('SET_USER_INFO', '')
+    store.commit('SET_USER_PERMISSIONS', '')
+    store.commit('SET_USER_ROLES', '')
+    loginRedirect()
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -28,6 +38,9 @@ div {
   align-items: center;
   & > * {
     margin-left: 1em;
+  }
+  span {
+    cursor: pointer;
   }
 }
 </style>

@@ -10,15 +10,23 @@ const store = createStore({
   state() {
     return {
       ajaxLoading: false,
-      userInfo: null
+      userInfo: {},
+      userPermissions: [],
+      userRoles: []
     }
   },
   mutations: {
     SET_AJAX_LODING(state, flag) {
       state.ajaxLoading = flag
     },
-    SET_USER_INFO(state, tree) {
-      state.userInfo = tree
+    SET_USER_INFO(state, data) {
+      state.userInfo = data
+    },
+    SET_USER_PERMISSIONS(state, data) {
+      state.userPermissions = data
+    },
+    SET_USER_ROLES(state, data) {
+      state.userRoles = data
     }
   }
 })

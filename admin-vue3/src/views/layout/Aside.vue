@@ -8,69 +8,52 @@
   <header>
     <img src="@/assets/img/opay-logo.png" alt="logo" />
   </header>
-  <el-menu default-active="2" class="el-menu-vertical-demo" router :collapse="false" @open="handleOpen"
-    @close="handleClose">
-    <el-sub-menu v-for="item in routers" :index="item.path" :key="item.path">
-      <template #title>
-        <el-icon>
-          <location />
-        </el-icon>
-        <span>{{ item.meta.title }}</span>
-      </template>
-      <el-menu-item-group v-if="item.children">
-        <el-menu-item v-for="citem in item.children" :key="citem.path" :index="item.path + '/' + citem.path">
-          {{ citem.meta.title }}</el-menu-item>
-      </el-menu-item-group>
-    </el-sub-menu>
+  <el-menu :default-active="$route.path" class="el-menu-vertical-demo" router :collapse="false">
+    <template v-for="item in routers" :key="item">
+      <el-sub-menu v-if="item.meta.menu" :index="item.path">
+        <template #title>
+          <el-icon><location /></el-icon>
+          <span>{{ item.meta.title }}</span>
+        </template>
+        <el-menu-item-group v-if="item.children">
+          <template v-for="citem in item.children" :key="citem">
+            <el-menu-item v-if="citem.meta.menu" :index="item.path + '/' + citem.path">
+              {{ citem.meta.title }}
+            </el-menu-item>
+          </template>
+        </el-menu-item-group>
+      </el-sub-menu>
+    </template>
   </el-menu>
 </template>
 
 <script setup>
-  import {
-    reactive,
-    ref
-  } from 'vue'
-  import {
-    Location,
-    Document,
-    Menu as IconMenu,
-    Setting
-  } from '@element-plus/icons'
-  import {
-    asyncRouterMap
-  } from '@/router/routes.js'
-import { useRoute, useRouter } from 'vue-router'
-  const isCollapse = ref(true)
-  const handleOpen = (key, keyPath) => {
-    console.log(key, keyPath)
-  }
-  
-  const a = useRouter()
-  const b = useRoute()
-  console.log(a.getRoutes(),b)
+import { reactive, ref } from 'vue'
+import { Location, Document, Menu as IconMenu, Setting } from '@element-plus/icons'
+import { asyncRouterMap } from '@/router/routes.js'
+// import { useRoute, useRouter } from 'vue-router'
+const isCollapse = ref(true)
 
+// const a = useRouter()
+// const b = useRoute()
 
-  const routers = reactive(asyncRouterMap)
-  // console.log('////', routers)
-
-  const handleClose = (key, keyPath) => {
-    console.log(key, keyPath)
-  }
+const routers = reactive(asyncRouterMap)
 </script>
 
 <style lang="scss" scoped>
-  .el-menu-vertical-demo:not(.el-menu--collapse) {
-    background: none;
-    width: 100%;
-    min-height: 400px;
-  }
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  background: none;
+  width: 100%;
+  min-height: 400px;
+  overflow: scroll;
+}
 
-  header {
-    height: 60px;
-    background-color: $opay-color;
+header {
+  height: 60px;
+  background-color: $opay-color;
 
-    img {
-      height: 100%;
-    }
+  img {
+    height: 100%;
   }
+}
 </style>

@@ -6,12 +6,19 @@
 -->
 
 <template>
-404
-<p> 页面不存在 </p>
+  <div class="page404">
+    <h1>404</h1>
+    <p>您没有访问权限</p>
+  </div>
 </template>
 
-<script>
-export default {}
-</script>
-
-<style></style>
+<style lang="scss" scoped>
+.page404 {
+  box-sizing: border-box;
+  text-align: center;
+  padding-top: 40vh;
+  h1 {
+    font-size: 2em;
+  }
+}
+</style>

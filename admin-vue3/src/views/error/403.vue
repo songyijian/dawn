@@ -6,12 +6,19 @@
 -->
 
 <template>
-403
-<p> 您没有访问权限 </p>
+  <div class="page403">
+    <h1>403</h1>
+    <p>暂无访问权限</p>
+  </div>
 </template>
 
-<script>
-export default {}
-</script>
-
-<style></style>
+<style lang="scss" scoped>
+.page403 {
+  box-sizing: border-box;
+  text-align: center;
+  padding-top: 40vh;
+  h1 {
+    font-size: 2em;
+  }
+}
+</style>
