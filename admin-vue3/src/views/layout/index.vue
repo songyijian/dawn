@@ -13,19 +13,19 @@
       <el-header><Header></Header></el-header>
       <el-main class="layout-mian">
         <router-view></router-view>
-        <el-row v-loading="loding" v-if="loding" class="global-loading" />
+        <el-row v-loading="ajaxLoading" v-if="ajaxLoading" class="global-loading" />
       </el-main>
     </el-container>
   </el-container>
 </template>
 
 <script setup>
-import { useStore } from 'vuex'
 import Aside from '@/views/layout/Aside.vue'
 import Header from '@/views/layout/Header.vue'
+import { computed } from '@vue/reactivity'
+import { useStore } from 'vuex'
 
-const store = useStore()
-const loding = store.state.ajaxLoding
+const ajaxLoading = computed(() => useStore().state.ajaxLoading)
 </script>
 
 <style lang="scss" scoped>

@@ -21,6 +21,7 @@ class Logger {
     }
   }
 }
+export const logger = fn => new Logger(fn)
 
 export const JSONcopy = data => JSON.parse(JSON.stringify(data))
 
@@ -29,5 +30,3 @@ export const getRouterTerr = (a, b) => {}
 export const routerMenuFilter = (a, b) => {
   let nowMenuList = []
 }
-
-export const logger = fn => new Logger(fn)

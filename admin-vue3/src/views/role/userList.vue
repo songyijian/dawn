@@ -5,7 +5,8 @@
  * @Date: 2021-12-03 11:21:34
 -->
 <template>
-  {{ editData }}
+  {{ mydata.editData }}
+
   <el-form ref="myform" :model="config" :inline="true" @keyup.enter.native="sub('search')">
     <el-form-item label="user_id">
       <el-input v-model.number="config.user_id" type="number"></el-input>
@@ -17,11 +18,11 @@
       <el-input v-model.trim="config.user_name"></el-input>
     </el-form-item>
 
-    <el-button type="primary" @click="sub('search')">search</el-button>
+    <el-button type="primary" @click="sub('search')">Search</el-button>
     <el-button @click="resetForm">Reset</el-button>
   </el-form>
 
-  <el-table :data="tableData" style="width: 100%">
+  <el-table :data="mydata.tableData" style="width: 100%">
     <el-table-column prop="user.id" label="id" />
     <el-table-column prop="user.name" label="name" />
 
@@ -42,29 +43,42 @@
 
     <el-table-column label="set">
       <template #default="scope">
-        <el-button type="text" size="small" @click="handleSet(scope.row, 'delete')">delete</el-button>
-        <el-button type="text" size="small" @click="handleSet(scope.row, 'edit')">Edit</el-button>
+        <el-button type="text" @click="subMap.dele(scope.row)">delete</el-button>
+        <el-button type="text" @click="subMap.edit(scope.row)">Edit</el-button>
       </template>
     </el-table-column>
   </el-table>
-
+  <!-- pagination -->
   <el-pagination layout="prev, pager, next" v-model:page-size="config.page_size" v-model:current-page="config.page" :total="config.total"></el-pagination>
 
-  <el-dialog v-model="dialogTableVisible" title="Edit">
-    <div>{{ editData }}</div>
+  <!-- dialog -->
+  <el-dialog v-model="mydata.dialogTableVisible" title="Edit">
+    <div>{{ mydata.editData }}</div>
 
-    <el-form ref="editform" label-width="120px">
-      <el-form-item label="Activity name">
-        <!-- <el-input v-model="form.name"></el-input> -->
-        saaaaaaa
+    <el-form ref="editform" v-model="mydata.editData" label-width="70px">
+      <el-form-item label="name">
+        <el-input v-model="mydata.editData.user.name"></el-input>
+        <!-- <div>{{ mydata.editData.user.name }}</div> -->
+      </el-form-item>
+      <el-form-item label="email">
+        <el-input v-model="mydata.editData.user.email"></el-input>
+        <!-- <div>{{ mydata.editData.user.email }}</div> -->
+      </el-form-item>
+      <el-form-item label="roles">
+        <!-- <div>
+          <el-tag size="mini" v-for="item in mydata.editData.roles" :key="item.id">{{ item.name }}</el-tag>
+        </div> -->
+        <el-select v-model="mydata.editRolesResult" multiple placeholder="Select">
+          <el-option v-for="item in mydata.editData.roles" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        </el-select>
       </el-form-item>
     </el-form>
   </el-dialog>
 </template>
 
 <script setup>
-import { reactive, ref } from '@vue/reactivity'
-import { onMounted, watch } from '@vue/runtime-core'
+import { computed, reactive, ref, toRef } from '@vue/reactivity'
+import { onMounted, watch, watchEffect } from '@vue/runtime-core'
 import { POST_userlist, POST_userdelete } from '@/api'
 import { JSONcopy } from '@/utils/tools.js'
 
@@ -79,10 +93,20 @@ const config = reactive({
   status: 0 // int32 status = 7;       // 搜索的用户状态 (不限制不传或传 0)
 })
 
+const mydata = reactive({
+  dialogTableVisible: false,
+  editData: {},
+  tableData: [],
+  editRolesResult: []
+})
+
 const myform = ref(null)
-let tableData = ref([])
-let dialogTableVisible = ref(false)
-let editData = ref(false)
+// let tableData = ref([])
+// let editRolesResult = ref([])
+
+watchEffect(() => {
+  mydata.editRolesResult = mydata.editData?.roles ? mydata.editData.roles.map(item => item.id) : []
+})
 
 const sub = async type => {
   config.page = type === 'search' ? 0 : config.page
@@ -90,24 +114,23 @@ const sub = async type => {
     const { code, data, message } = await POST_userlist(config)
     if (!code) {
       config.total = data.total
-      tableData.value = data.records
+      mydata.tableData = data.records
       ElMessage.warning(message)
     }
   } catch (error) {}
 }
 
-const setMap = {
-  async delete(data) {
+const subMap = {
+  async dele(data) {
     var { code } = await POST_userdelete({ id: 'data.user.id' })
     !code && sub()
   },
   edit(data) {
-    editData.value = JSONcopy({ ...data })
-    dialogTableVisible.value = true
+    mydata.editData = JSONcopy({ ...data })
+    mydata.dialogTableVisible = true
   }
 }
 
-const handleSet = (data, type) => setMap[type](data)
 const resetForm = () => {
   // myform.value.resetFields()
   config.user_id = undefined

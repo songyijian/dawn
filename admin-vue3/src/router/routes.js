@@ -10,43 +10,35 @@ const layout = () => import('@/views/layout/index.vue')
 
 export const asyncRouterMap = [
   {
-    path: '/business',
-    name: 'business',
-    meta: { title: 'business', menu: true },
+    path: '/merchants',
+    name: 'merchants',
+    meta: { title: 'merchants', menu: true },
     component: layout,
     children: [
-      { path: '', redirect: '/business/list', meta: { title: 'business', menu: false } },
-      // {
-      //   path: 'test',
-      //   name: 'businessTest',
-      //   meta: { title: 'business test', menu: true },
-      //   component: () => import('@/views/business/mylist.vue'),
-      //   children: [
-      //     {
-      //       path: 'test_list',
-      //       name: 'businessList',
-      //       meta: { title: 'business list', menu: true },
-      //       component: () => import('@/views/business/mylist.vue')
-      //     }
-      //   ]
-      // },
+      { path: '', redirect: '/merchants/list', meta: { title: 'merchants', menu: false } },
       {
         path: 'list',
-        name: 'businessList',
-        meta: { title: 'business list', menu: true },
-        component: () => import('@/views/business/mylist.vue')
+        name: 'merchantsList',
+        meta: { title: 'Merchants list', menu: true },
+        component: () => import('@/views/merchants/list.vue')
       },
       {
         path: 'frozen',
-        name: 'businessFrozen',
+        name: 'merchantsFrozen',
         meta: { title: 'Frozen merchant accounts', menu: true },
-        component: () => import('@/views/business/frozen.vue')
+        component: () => import('@/views/merchants/frozen.vue')
       },
       {
         path: 'settled',
-        name: 'businessSettled',
-        meta: { title: 'business settled', menu: true },
-        component: () => import('@/views/business/settled.vue')
+        name: 'merchantsSettled',
+        meta: { title: 'merchants settled', menu: true },
+        component: () => import('@/views/merchants/settled.vue')
+      },
+      {
+        path: 'add',
+        name: 'merchantsAdd',
+        meta: { title: 'Add merchant accounts', menu: false },
+        component: () => import('@/views/merchants/add.vue')
       }
     ]
   },
