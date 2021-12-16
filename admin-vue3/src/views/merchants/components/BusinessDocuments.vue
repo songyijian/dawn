@@ -6,11 +6,9 @@
 -->
 
 <template>
-  <el-form v-if="config" ref="myform" :model="config" :disabled="disabledStatus" label-width="200px">
-    {{ disabledStatus }}
-
+  <el-form v-if="config" ref="myform" :model="config" :disabled="!editEnv" label-width="200px">
     <el-form-item label="Utility bills" prop="expense_bill_pics" :rules="verify('required', 'arryRepeatedString')">
-      <FileUpload @uploaderCallback="uploaderCallback($event, config.expense_bill_pics)" :disabled="disabledStatus">
+      <FileUpload @uploaderCallback="uploaderCallback($event, config.expense_bill_pics)" :disabled="!editEnv">
         <template v-slot:handle="{ onSelectFile }">
           <el-button size="small" type="primary" @click="onSelectFile">select file</el-button>
         </template>
@@ -25,7 +23,7 @@
     </el-form-item>
 
     <el-form-item label="photos of stores/outlets" prop="store_pics" :rules="verify('required', 'arryRepeatedString')">
-      <FileUpload @uploaderCallback="uploaderCallback($event, config.store_pics)" :disabled="disabledStatus">
+      <FileUpload @uploaderCallback="uploaderCallback($event, config.store_pics)" :disabled="!editEnv">
         <template v-slot:handle="{ onSelectFile }">
           <el-button size="small" type="primary" @click="onSelectFile">select file</el-button>
         </template>
@@ -40,7 +38,7 @@
     </el-form-item>
 
     <el-form-item label="Stores/outlets" prop="store_owner_pics" :rules="verify('required', 'arryRepeatedString')">
-      <FileUpload @uploaderCallback="uploaderCallback($event, config.store_owner_pics)" :disabled="disabledStatus">
+      <FileUpload @uploaderCallback="uploaderCallback($event, config.store_owner_pics)" :disabled="!editEnv">
         <template v-slot:handle="{ onSelectFile }">
           <el-button size="small" type="primary" @click="onSelectFile">select file</el-button>
         </template>
@@ -71,8 +69,6 @@ const { inData, editEnv } = defineProps({
     default: ''
   }
 })
-
-const disabledStatus = computed(() => !!editEnv)
 
 const uploaderCallback = ({ code, data }, obj) => {
   if (!code) {

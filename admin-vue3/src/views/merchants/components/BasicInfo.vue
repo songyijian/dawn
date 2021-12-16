@@ -7,7 +7,6 @@
 
 <template>
   <div v-if="config.merchant">
-    {{ config }}
     <h3>Basic information</h3>
     <FormItemStyle :label-width="'200px'">
       ID
@@ -15,13 +14,13 @@
         {{ config.merchant.id }}
       </template>
     </FormItemStyle>
-    <!-- <MerchantsRole :inData="config.merchant" :editEnv="config.editEnv"></MerchantsRole> -->
-    <PersonalInformation :inData="config.merchant" :editEnv="config.editEnv"></PersonalInformation>
-    <!--     
+    <MerchantsRole :inData="config.merchant" :disabled="true"></MerchantsRole>
+    <PersonalInformation :inData="config.merchant" :disabled="!Boolean(evn)"></PersonalInformation>
 
     <h3>Account information</h3>
-    <OutletsInformation :inData="config.merchant" :editEnv="config.editEnv"></OutletsInformation>
-    <BusinessDocuments :inData="config.merchant" :editEnv="config.editEnv"></BusinessDocuments>
+    <OutletsInformation :inData="config.merchant" :disabled="!Boolean(evn)"></OutletsInformation>
+    <!--     
+    <BusinessDocuments :inData="config.merchant" ></BusinessDocuments>
 
     <h3>Review Status</h3>
     <Approval :inData="config.current_approval" ref="approvalForm"></Approval> -->
@@ -36,6 +35,7 @@
 
       <template v-if="approvalStatus === 103 || approvalStatus === 1 || approvalStatus === 203">
         103.入驻驳回
+        <el-button type="primary" @click="edit">编辑 Edit</el-button>
         <el-button type="primary" @click="edit">编辑 Edit</el-button>
       </template>
 
@@ -89,9 +89,10 @@ let config = reactive({
   current_approval: null,
   disabledStatus: true,
   pageStatus: '',
-  dialogVisible: false,
-  editEnv: ''
+  dialogVisible: false
 })
+
+const evn = ref('')
 
 const { id } = defineProps({
   id: String
@@ -162,7 +163,7 @@ const subMap = {
 }
 
 const edit = () => {
-  config.editEnv = 'edit'
+  evn.value = 'edit'
   config.disabledStatus = false
 }
 

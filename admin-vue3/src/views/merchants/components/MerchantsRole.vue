@@ -5,7 +5,7 @@
  * @Date: 2021-12-07 20:30:20
 -->
 <template>
-  <el-form v-if="config" ref="myform" :model="config" label-width="200px" :disabled="disabledStatus">
+  <el-form v-if="config" ref="myform" :model="config" label-width="200px" :disabled="disabled">
     <el-form-item label="Resources" prop="merchant_role" :rules="[{ validator: validatePass }, ...verify('required')]">
       <el-radio-group v-model.number="config.merchant_role">
         <el-radio v-for="(val, key) in MERCHANT_ROLE" :key="val" :label="Number(key)">{{ val }}</el-radio>
@@ -27,12 +27,11 @@ let { inData, editEnv } = defineProps({
     type: Object,
     default: null
   },
-  editEnv: {
-    type: String,
-    default: ''
+  disabled: {
+    type: Boolean,
+    default: false
   }
 })
-const disabledStatus = computed(() => !!editEnv)
 
 const validatePass = (a, val, callback) => {
   if (val < 1 || val > 2) return callback(new Error('is required'))

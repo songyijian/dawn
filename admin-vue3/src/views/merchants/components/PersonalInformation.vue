@@ -6,7 +6,8 @@
 -->
 
 <template>
-  <el-form v-if="config" ref="myform" :model="config" label-width="200px" :disabled="!editEnv">
+  {{ inData }} ----- {{ disabled }}
+  <el-form v-if="config" ref="myform" :model="config" label-width="200px" :disabled="disabled">
     <el-form-item label="Mobile number" prop="mobile" :rules="verify('required', 'string')">
       <el-input v-model.string="config.mobile" type="string"></el-input>
     </el-form-item>
@@ -48,7 +49,7 @@
     </el-form-item>
 
     <el-form-item label="Government-issued ID card" prop="id_pics" :rules="verify('required', 'arryRepeatedString')">
-      <FileUpload @uploaderCallback="uploaderCallback($event, config.id_pics)" :disabled="disabledStatus">
+      <FileUpload @uploaderCallback="uploaderCallback($event, config.id_pics)" :disabled="disabled">
         <template v-slot:handle="{ onSelectFile }">
           <el-button size="small" type="primary" @click="onSelectFile">select file</el-button>
         </template>
@@ -65,22 +66,30 @@
 
 <script setup>
 import FileUpload from '@/components/FileUpload.vue'
-import { computed, ref } from '@vue/reactivity'
+import { computed, ref, toRefs } from '@vue/reactivity'
 import { watch } from 'vue-demi'
 import { verify } from '@/utils/tools.validate.js'
 import { MERCHANT_ID_TYPE, GENDER } from '@/utils/treatymap.js'
 
 const myform = ref(null)
 let config = ref(null)
-let { inData, editEnv } = defineProps({
+
+const props = defineProps({
   inData: {
     type: Object,
     default: null
   },
+  disabled: { type: Boolean, default: false },
   editEnv: {
     type: String,
     default: ''
   }
+})
+
+const { inData, editEnv, disabled } = toRefs(props)
+
+watch(disabled, a => {
+  console.log('///', a)
 })
 
 const uploaderCallback = ({ code, data }, obj) => {
@@ -93,13 +102,13 @@ const rmImage = (n, obj) => {
   obj.splice(n, 1)
 }
 
-watch(
-  () => inData,
-  a => {
-    config.value = a
-  },
-  { deep: true, immediate: true }
-)
+// watch(
+//   () => inData,
+//   a => {
+//     config.value = a
+//   },
+//   { deep: true, immediate: true }
+// )
 
 defineExpose({ formObj: myform })
 </script>
