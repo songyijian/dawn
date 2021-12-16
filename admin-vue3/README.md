@@ -1,7 +1,7 @@
 # 西非业务管理后台
 
-// 用过的组建
+## 环境配置
 
-```js
-import { UserFilled } from '@element-plus/icons'
-```
+gitlab
+
+- https://git.opaydev.com/opay-app-h5/westafrica-pc

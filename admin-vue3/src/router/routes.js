@@ -4,8 +4,8 @@
  * @Version: 0.1.0
  * @Date: 2021-12-01 11:36:58
  */
+// const page403 = () => import('@/views/error/403.vue')
 const page404 = () => import('@/views/error/404.vue')
-const page403 = () => import('@/views/error/403.vue')
 const layout = () => import('@/views/layout/index.vue')
 
 export const asyncRouterMap = [
@@ -35,17 +35,23 @@ export const asyncRouterMap = [
         component: () => import('@/views/merchants/settled.vue')
       },
       {
-        path: 'add',
-        name: 'merchantsAdd',
-        meta: { title: 'Add merchant accounts', menu: false },
-        component: () => import('@/views/merchants/add.vue')
+        path: 'create',
+        name: 'createMerchantAccounts',
+        meta: { title: 'Create merchant accounts', menu: false },
+        component: () => import('@/views/merchants/create.vue')
+      },
+      {
+        path: 'audit',
+        name: 'auditMerchantAccounts',
+        meta: { title: 'audit merchant accounts', menu: false },
+        component: () => import('@/views/merchants/audit.vue')
       }
     ]
   },
   {
     path: '/KYC',
     name: 'KYC',
-    meta: { title: 'KYC管理', menu: true },
+    meta: { title: 'KYC management', menu: true },
     component: layout,
     children: [
       { path: '', redirect: '/KYC/list', meta: { title: 'KYC list', menu: false } },
@@ -53,21 +59,27 @@ export const asyncRouterMap = [
         path: 'list',
         name: 'KYClist',
         meta: { title: 'KYC list', menu: true },
-        component: () => import('@/views/kYC/list.vue')
+        component: () => import('@/views/KYC/list.vue')
+      },
+      {
+        path: 'details',
+        name: 'KYCdetails',
+        meta: { title: 'KYC details', menu: false },
+        component: () => import('@/views/KYC/details.vue')
       }
     ]
   },
   {
     path: '/role',
     name: 'role',
-    meta: { title: '权限管理', menu: true },
+    meta: { title: 'Authority management', menu: true },
     component: layout,
     children: [
-      { path: '', redirect: '/role/userlist', meta: { title: 'userlist', menu: false } },
+      { path: '', redirect: '/role/list', meta: { title: 'list', menu: false } },
       {
-        path: 'userlist',
+        path: 'list',
         name: 'roleUserlist',
-        meta: { title: 'userlist', menu: true },
+        meta: { title: 'list', menu: true },
         component: () => import('@/views/role/userList.vue')
       }
     ]
@@ -75,14 +87,13 @@ export const asyncRouterMap = [
 ]
 
 export const defaultRouter = [
-  { path: '', redirect: '/403', meta: { title: '403', menu: false } },
-  {
-    path: '/403',
-    name: '403',
-    meta: { title: '403', menu: false },
-    hidden: true,
-    component: page403
-  },
+  // {
+  //   path: '/403',
+  //   name: '403',
+  //   meta: { title: '403', menu: false },
+  //   hidden: true,
+  //   component: page403
+  // },
   {
     path: '/:catchAll(.*)',
     name: '404',

@@ -7,8 +7,7 @@
 
 <template>
   <div class="page404">
-    <h1>404</h1>
-    <p>您没有访问权限</p>
+    <h1>页面不存在或暂无访问权限</h1>
   </div>
 </template>
 
@@ -17,6 +16,7 @@
   box-sizing: border-box;
   text-align: center;
   padding-top: 40vh;
+  color: #3333;
   h1 {
     font-size: 2em;
   }

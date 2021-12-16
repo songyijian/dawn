@@ -7,7 +7,7 @@
 <template>
   <div>
     {{ $store.state.userInfo.name }}
-    <span @click="logout">登出</span>
+    <span @click="logout">Log Out</span>
   </div>
 </template>
 
@@ -41,6 +41,9 @@ div {
   }
   span {
     cursor: pointer;
+    &:hover {
+      color: #fff;
+    }
   }
 }
 </style>

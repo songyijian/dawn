@@ -31,12 +31,6 @@
 import { reactive, ref } from 'vue'
 import { Location, Document, Menu as IconMenu, Setting } from '@element-plus/icons'
 import { asyncRouterMap } from '@/router/routes.js'
-// import { useRoute, useRouter } from 'vue-router'
-const isCollapse = ref(true)
-
-// const a = useRouter()
-// const b = useRoute()
-
 const routers = reactive(asyncRouterMap)
 </script>
 

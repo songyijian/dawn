@@ -17,8 +17,7 @@ const router = createRouter({
 //  */
 // router.beforeEach((to, from, next) => {
 //   // beforeEach.checkAuth(to, router)
-//   console.log('router.guard', to)
-
+//   console.log('router.to', to)
 //   next()
 // })
 

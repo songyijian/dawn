@@ -20,10 +20,10 @@ export default ({ mode }) => {
       port: 3000,
       open: true,
       proxy: {
-        '/api': {
+        '/cmapi': {
           target: 'https://zm-admin-api-test.opayweb.com/',
           changeOrigin: true,
-          rewrite: path => path.replace(/^\/api/, '')
+          rewrite: path => path.replace(/^\/cmapi/, '')
         }
       }
     }
