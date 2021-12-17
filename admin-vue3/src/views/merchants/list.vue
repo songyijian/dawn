@@ -6,11 +6,11 @@
 -->
 <template>
   <el-form ref="myform" :model="config" :inline="true" @keyup.enter="query('search')">
-    <el-form-item label="Name" prop="name">
+    <el-form-item label="Name" prop="name" :rules="verify('string')">
       <el-input v-model.trim="config.name"></el-input>
     </el-form-item>
-    <el-form-item label="Mobile No." prop="mobile">
-      <el-input v-model.number="config.mobile" type="number"></el-input>
+    <el-form-item label="Mobile No." prop="mobile" :rules="verify('string')">
+      <el-input v-model="config.mobile" type="string"></el-input>
     </el-form-item>
 
     <el-form-item label="Registeration time">
@@ -27,11 +27,14 @@
       </el-col>
     </el-form-item>
 
-    <el-form-item label="Role" prop="merchant_role">
-      <el-input v-model.trim="config.merchant_role"></el-input>
+    <el-form-item label="Role" prop="merchant_role" :rules="verify('int32')">
+      <el-select v-model="config.merchant_role" @change="query('search')">
+        <el-option label="All" :value="0"></el-option>
+        <el-option v-for="(value, keys) in MERCHANT_ROLE" :key="keys" :label="value" :value="Number(keys)"></el-option>
+      </el-select>
     </el-form-item>
 
-    <el-form-item label="E-mail" prop="email">
+    <el-form-item label="E-mail" prop="email" :rules="verify('email')">
       <el-input v-model.trim="config.email"></el-input>
     </el-form-item>
 
@@ -80,7 +83,8 @@
 import { reactive, ref } from '@vue/reactivity'
 import { POST_merchantList } from '@/api'
 import { useRouter } from 'vue-router'
-import { MERCHANT_APPROVAL_STATUS } from '@/utils/treatymap.js'
+import { MERCHANT_APPROVAL_STATUS, MERCHANT_ROLE } from '@/utils/treatymap.js'
+import { verify } from '@/utils/tools.validate.js'
 
 const router = useRouter()
 const myform = ref(null)

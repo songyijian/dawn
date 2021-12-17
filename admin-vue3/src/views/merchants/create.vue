@@ -5,8 +5,7 @@
  * @Date: 2021-12-03 11:21:34
 -->
 <template>
-  {{ merchant }} -
-  {{ mydata.active }}
+  {{ merchant }}
   <el-row>
     <el-steps :active="mydata.active" finish-status="success" align-center>
       <el-step title="Role" description="Select Create role"></el-step>
@@ -17,7 +16,7 @@
   </el-row>
 
   <div v-show="mydata.active >= 0">
-    <component ref="myComponent" :is="useComponentsMap[mydata.active]" :inData="merchant"></component>
+    <component ref="myComponent" :is="useComponentsMap[mydata.active]" :inData="merchant" :evn="'create'"></component>
   </div>
 
   <el-form class="fast-seek">

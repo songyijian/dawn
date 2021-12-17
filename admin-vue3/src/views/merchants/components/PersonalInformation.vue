@@ -6,8 +6,12 @@
 -->
 
 <template>
-  {{ inData }} ----- {{ disabled }}
+  <!-- {{ env }} {{ disabled }} {{ props }} -->
   <el-form v-if="config" ref="myform" :model="config" label-width="200px" :disabled="disabled">
+    <el-form-item label="ID" v-if="config.id">
+      {{ config.id }}
+    </el-form-item>
+
     <el-form-item label="Mobile number" prop="mobile" :rules="verify('required', 'string')">
       <el-input v-model.string="config.mobile" type="string"></el-input>
     </el-form-item>
@@ -72,25 +76,25 @@ import { verify } from '@/utils/tools.validate.js'
 import { MERCHANT_ID_TYPE, GENDER } from '@/utils/treatymap.js'
 
 const myform = ref(null)
-let config = ref(null)
 
 const props = defineProps({
   inData: {
     type: Object,
+    required: true,
     default: null
   },
-  disabled: { type: Boolean, default: false },
-  editEnv: {
+  disabled: {
+    type: [String, Boolean],
+    default: false
+  },
+  env: {
     type: String,
+    required: false,
     default: ''
   }
 })
 
-const { inData, editEnv, disabled } = toRefs(props)
-
-watch(disabled, a => {
-  console.log('///', a)
-})
+let config = ref(props.inData)
 
 const uploaderCallback = ({ code, data }, obj) => {
   if (!code) {

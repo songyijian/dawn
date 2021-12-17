@@ -6,34 +6,23 @@
 -->
 
 <template>
-  <el-row :gutter="10">
+  <el-row :gutter="20" v-if="config.tradeReq">
     <el-col :span="8" class="card-box">
-      <h2>钱包余额</h2>
-      <strong>100%</strong>
-      <p>
-        较昨日
-        <span>5.9%</span>
-        <el-icon><SortDown /></el-icon>
-      </p>
+      <h3>账户余额</h3>
+      <strong>{{ config.tradeReq.account_balance }}</strong>
     </el-col>
     <el-col :span="8" class="card-box">
-      <h2>钱包余额</h2>
-      <strong>100%</strong>
-      <p>
-        较昨日
-        <span>5.9%</span>
-        <el-icon><SortDown /></el-icon>
-      </p>
+      <h3>交易量</h3>
+      <strong>{{ config.tradeReq.trans_num }}</strong>
     </el-col>
     <el-col :span="8" class="card-box">
-      <h2>钱包余额</h2>
-      <strong>100%</strong>
-      <p>
-        较昨日
-        <span>5.9%</span>
-        <el-icon><SortDown /></el-icon>
-      </p>
+      <h3>代理数</h3>
+      <strong>{{ config.tradeReq.agent_num }}</strong>
     </el-col>
+    <!-- <el-col :span="8" class="card-box">
+      <h3>可用余额</h3>
+      <strong>{{ config.tradeReq.usable_balance }}</strong>
+    </el-col> -->
   </el-row>
 
   <h3>交易流水</h3>
@@ -43,7 +32,6 @@
 <script>
 //组件script
 import { SortUp, SortDown } from '@element-plus/icons'
-
 export default {
   components: {
     SortDown,
@@ -54,31 +42,36 @@ export default {
 
 <script setup>
 import { reactive, ref } from '@vue/reactivity'
-import { POST_merchantRechargeList } from '@/api'
-import { useRoute, useRouter } from 'vue-router'
+import { POST_merchantTradeReq } from '@/api'
 import { watch } from 'vue-demi'
-// import { Edit, Share, Delete, Search, Upload } from '@element-plus/icons-vue'
 
-let config = reactive({})
-const { id } = defineProps({
+const config = reactive({
+  tradeReq: null
+})
+
+const props = defineProps({
   id: String
 })
 
+const merchant_id = Number(props.id)
 const query = async type => {
-  const { code, data, message } = await POST_merchantRechargeList({ app_id: Number(id) })
+  const { code, data, message } = await POST_merchantTradeReq({ merchant_id })
   console.log(code, data, message)
   if (!code) {
+    config.tradeReq = data
+
     // const { merchant, current_approval } = data
     // config.merchant = merchant
     // config.current_approval = current_approval
   }
 }
 
-// query()
+query()
 </script>
 
 <style lang="scss" scoped>
 .card-box {
   border-left: 3px solid $opay-color;
+  // background: #fff;
 }
 </style>

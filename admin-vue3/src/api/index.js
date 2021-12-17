@@ -21,7 +21,9 @@ export const GET_roleList = () => axios.get('/cmapi/manage/sys/role/list')
 
 export const GET_tree = () => axios.get('/cmapi/manage/sys/menu/tree')
 
-// KYC管理
+/*
+KYC管理
+*/
 
 export const POST_kycAppList = (data = {}) => axios.post('/cmapi/manage/kyc/application/list', data)
 
@@ -31,7 +33,9 @@ export const POST_kycPass = (data = {}) => axios.post('/cmapi/manage/kyc/applica
 
 export const POST_kycReject = (data = {}) => axios.post('/cmapi/manage/kyc/application/reject', data)
 
-// 商户
+/*
+商户
+*/
 export const POST_merchantList = (data = {}) => axios.post('/cmapi/manage/merchant/application/list', data)
 
 export const POST_merchantFreezeList = (data = {}) => axios.post('/cmapi/manage/merchant/freeze/list', data)
@@ -45,11 +49,8 @@ export const POST_merchantRechargeList = (data = {}) => axios.post('/cmapi/manag
 export const POST_merchantCreate = (data = {}) => axios.post('/cmapi/manage/merchant/create', data)
 
 // 申请待审核：审核通过、驳回、拒绝 *
-
 // 申请驳回：重新编辑后提交申请
-
 // 申请拒绝：被拒绝、什么都干不了
-
 // 审核通过：可以修改信息
 // 修改待审核：审核通过、驳回、拒绝
 // 修改驳回：重新修改后提交
@@ -71,7 +72,7 @@ export const POST_merchantApprovalReject = (data = {}) => axios.post('/cmapi/man
 // 103
 export const POST_merchantReapplication = (data = {}) => axios.post('/cmapi/manage/merchant/reapplication', data) // 审核驳回,编辑后再申请
 
-// 1,203
+// 1,203、 302
 export const POST_merchantModifyInfo = (data = {}) => axios.post('/cmapi/manage/merchant/modify/info', data) // 审核通过，入驻已通过,编辑后再申请（提交后进入审核201）
 
 // 退驻 301
@@ -79,10 +80,23 @@ export const POST_merchantRetiredReject = (data = {}) => axios.post('/cmapi/mana
 
 export const POST_merchantRetiredPass = (data = {}) => axios.post('/cmapi/manage/merchant/retired/pass', data) // 通过退驻 （变303）
 
-// 可冻结 1、203、202、301、302
+// 可冻结 1、201、203、202、301、302
 export const POST_merchantFreeze = (data = {}) => axios.post('/cmapi/manage/merchant/freeze', data) // 冻结
 
 export const POST_merchantUnfreeze = (data = {}) => axios.post('/cmapi/manage/merchant/unfreeze', data) // 解冻结
 
-// 文件上传
+export const POST_merchantTradeReq = (data = {}) => axios.post('/cmapi/manage/db/merchant/trade/info', data) // 解冻结
+
+/*
+文件上传
+*/
 export const POST_uploadImage = data => axios.post('/cmapi/manage/upload/form/image', data, { headers: { 'Content-Type': 'multipart/form-data' } })
+
+/*
+Dashboard 商户交易列表
+*/
+export const POST_DashboardAppOrderList = (data = {}) => axios.post('/cmapi/manage/merchant/app_order/list', data)
+
+export const POST_DashboardPlatformTradeInfo = (data = {}) => axios.post('/cmapi/manage/db/platform/trade/info', data)
+
+export const POST_DashboardPlatformRecharge = (data = {}) => axios.post('/cmapi/manage/db/platform/recharge', data)

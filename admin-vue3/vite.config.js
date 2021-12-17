@@ -11,6 +11,7 @@ export default ({ mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
+          charset: false,
           additionalData: '@import "src/assets/styles/_variable.scss";'
         }
       }

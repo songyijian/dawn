@@ -6,9 +6,9 @@
 -->
 
 <template>
-  <el-form v-if="config" ref="myform" :model="config" :disabled="!editEnv" label-width="200px">
+  <el-form v-if="config" ref="myform" :model="config" :disabled="disabled" label-width="200px">
     <el-form-item label="Utility bills" prop="expense_bill_pics" :rules="verify('required', 'arryRepeatedString')">
-      <FileUpload @uploaderCallback="uploaderCallback($event, config.expense_bill_pics)" :disabled="!editEnv">
+      <FileUpload @uploaderCallback="uploaderCallback($event, config.expense_bill_pics)" :disabled="disabled">
         <template v-slot:handle="{ onSelectFile }">
           <el-button size="small" type="primary" @click="onSelectFile">select file</el-button>
         </template>
@@ -23,7 +23,7 @@
     </el-form-item>
 
     <el-form-item label="photos of stores/outlets" prop="store_pics" :rules="verify('required', 'arryRepeatedString')">
-      <FileUpload @uploaderCallback="uploaderCallback($event, config.store_pics)" :disabled="!editEnv">
+      <FileUpload @uploaderCallback="uploaderCallback($event, config.store_pics)" :disabled="disabled">
         <template v-slot:handle="{ onSelectFile }">
           <el-button size="small" type="primary" @click="onSelectFile">select file</el-button>
         </template>
@@ -38,7 +38,7 @@
     </el-form-item>
 
     <el-form-item label="Stores/outlets" prop="store_owner_pics" :rules="verify('required', 'arryRepeatedString')">
-      <FileUpload @uploaderCallback="uploaderCallback($event, config.store_owner_pics)" :disabled="!editEnv">
+      <FileUpload @uploaderCallback="uploaderCallback($event, config.store_owner_pics)" :disabled="disabled">
         <template v-slot:handle="{ onSelectFile }">
           <el-button size="small" type="primary" @click="onSelectFile">select file</el-button>
         </template>
@@ -61,14 +61,24 @@ import { verify } from '@/utils/tools.validate.js'
 import FileUpload from '@/components/FileUpload.vue'
 
 const myform = ref(null)
-const config = ref(null)
-const { inData, editEnv } = defineProps({
-  inData: Object,
-  editEnv: {
+const props = defineProps({
+  inData: {
+    type: Object,
+    required: true,
+    default: null
+  },
+  disabled: {
+    type: [String, Boolean],
+    default: false
+  },
+  env: {
     type: String,
+    required: false,
     default: ''
   }
 })
+
+let config = ref(props.inData)
 
 const uploaderCallback = ({ code, data }, obj) => {
   if (!code) {
@@ -79,14 +89,6 @@ const uploaderCallback = ({ code, data }, obj) => {
 const rmImage = (n, obj) => {
   obj.splice(n, 1)
 }
-
-watch(
-  () => inData,
-  a => {
-    config.value = a
-  },
-  { deep: true, immediate: true }
-)
 
 defineExpose({ formObj: myform })
 </script>

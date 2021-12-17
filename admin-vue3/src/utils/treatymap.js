@@ -23,7 +23,6 @@ export const MERCHANT_ROLE = {
 export const MERCHANT_QUERY_APPROVAL_STATUS = checkStatus
 
 // 审批状态(1.入驻已通过 101.入驻待审核 102.入驻已拒绝 103.入驻驳回 201.修改待审核 202.修改拒绝 203.修改驳回 301.退驻待审核 302.退驻拒绝 303.退驻通过 400.冻结 401.人工解冻 402.自动解冻)
-
 export const MERCHANT_APPROVAL_STATUS = {
   1: '入驻已通过',
   101: '入驻待审核',
@@ -54,4 +53,9 @@ export const GENDER = {
 export const MERCHANT_REJEACT_RESON = {
   1: 'Abnormal account',
   2: 'Illegal account'
+}
+
+export const KYC_LEVEL = {
+  1: 'KYC1',
+  2: 'KYC2'
 }

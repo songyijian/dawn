@@ -49,6 +49,39 @@ export const asyncRouterMap = [
     ]
   },
   {
+    path: '/dashboard',
+    name: 'dashboard',
+    meta: { title: 'dashboard', menu: true },
+    component: layout,
+    children: [
+      { path: '', redirect: '/dashboard/index', meta: { title: 'dashboard index', menu: false } },
+      {
+        path: 'index',
+        name: 'dashboardIndex',
+        meta: { title: 'index', menu: true },
+        component: () => import('@/views/dashboard/index.vue')
+      },
+      {
+        path: 'rechargeOpay',
+        name: 'rechargeOpay',
+        meta: { title: 'Top up for OPay', menu: false },
+        component: () => import('@/views/dashboard/rechargeOpay.vue')
+      },
+      {
+        path: 'rechargeUser',
+        name: 'rechargeUser',
+        meta: { title: 'Top up for OPay', menu: false },
+        component: () => import('@/views/dashboard/rechargeUser.vue')
+      }
+      // {
+      //   path: 'details',
+      //   name: 'KYCdetails',
+      //   meta: { title: 'KYC details', menu: false },
+      //   component: () => import('@/views/KYC/details.vue')
+      // }
+    ]
+  },
+  {
     path: '/KYC',
     name: 'KYC',
     meta: { title: 'KYC management', menu: true },

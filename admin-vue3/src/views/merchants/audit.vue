@@ -5,7 +5,6 @@
  * @Date: 2021-12-03 11:21:34
 -->
 <template>
-  {{ config }}
   <div class="tabs">
     <h1 @click="tabsClick('base')" :class="{ 'tabs-select': config.tabPosition === 'base' }">Basic information</h1>
     <h1 @click="tabsClick('account')" :class="{ 'tabs-select': config.tabPosition === 'account' }">Account information</h1>

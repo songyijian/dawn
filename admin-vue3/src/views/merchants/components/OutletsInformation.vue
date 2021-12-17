@@ -6,7 +6,7 @@
 -->
 
 <template>
-  <el-form v-if="config" ref="myform" :model="config" :disabled="disabledStatus" label-width="200px" class="my-form">
+  <el-form v-if="config" ref="myform" :model="config" :disabled="disabled" label-width="200px" class="my-form">
     <el-form-item label="Store/outlet name" prop="name" :rules="verify('required', 'string')">
       <el-input v-model.number="config.name"></el-input>
     </el-form-item>
@@ -53,19 +53,24 @@ import { watch } from 'vue-demi'
 import { verify } from '@/utils/tools.validate.js'
 
 const myform = ref(null)
-let config = ref(null)
-
-let { inData, editEnv } = defineProps({
+const props = defineProps({
   inData: {
     type: Object,
+    required: true,
     default: null
   },
-  editEnv: {
+  disabled: {
+    type: [String, Boolean],
+    default: false
+  },
+  env: {
     type: String,
+    required: false,
     default: ''
   }
 })
-const disabledStatus = computed(() => !!editEnv)
+
+let config = ref(props.inData)
 
 const uploaderCallback = ({ code, data }, obj) => {
   if (!code) {
@@ -76,14 +81,6 @@ const uploaderCallback = ({ code, data }, obj) => {
 const rmImage = (n, obj) => {
   obj.splice(n, 1)
 }
-
-watch(
-  () => inData,
-  a => {
-    config.value = a
-  },
-  { deep: true, immediate: true }
-)
 
 defineExpose({ formObj: myform })
 </script>
