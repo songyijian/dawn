@@ -17,3 +17,9 @@ api 接口
 英文翻译
 
 - https://docs.qq.com/sheet/DRHhnQ2tyZFN1SUlX?tab=t6fwrt&_t=1639714422326
+
+
+笔记
+商户充值页：
+- 金额 & otp现在放在了一个api内
+- 详情交易信息不全

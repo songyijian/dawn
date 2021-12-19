@@ -11,6 +11,8 @@ const checkStatus = {
   3: 'Rejected' //'已驳回'
 }
 
+
+
 export const KEY_CHECK_STATUS = checkStatus
 
 // 商户角色(1.agent 2.master)
@@ -58,4 +60,10 @@ export const MERCHANT_REJEACT_RESON = {
 export const KYC_LEVEL = {
   1: 'KYC1',
   2: 'KYC2'
+}
+
+export const RECHARGE_STATUS = {
+  0: "审核中",
+  1: "已通过",
+  "-1": "已拒绝"
 }

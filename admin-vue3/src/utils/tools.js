@@ -62,3 +62,20 @@ export const fFullTime = t => tiemFormat(t, 'dd/MM/yyyy hh:m:s')
 
 // 	29/01/2021
 export const fDate = t => tiemFormat(t, 'dd/MM/yyyy')
+
+export function delByVal(json, rm){
+  const ar = o=>Array.isArray(o)
+  const tArray = ar(json)
+  const a = tArray ? [...json] :{...json}
+  const r =  new Set(ar(rm) ? rm : [rm])
+
+  if(tArray) return a.filter(item=>!r.has(item))
+
+  for (const key in a) {
+    if (Object.hasOwnProperty.call(a, key)) {
+      const item = a[key];
+      r.has(item) && delete a[key]
+    }
+  }
+  return a
+}

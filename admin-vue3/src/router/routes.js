@@ -4,11 +4,49 @@
  * @Version: 0.1.0
  * @Date: 2021-12-01 11:36:58
  */
-// const page403 = () => import('@/views/error/403.vue')
 const page404 = () => import('@/views/error/404.vue')
 const layout = () => import('@/views/layout/index.vue')
 
 export const asyncRouterMap = [
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    meta: { title: 'dashboard', menu: true },
+    component: layout,
+    children: [
+      { path: '', redirect: '/dashboard/index', meta: { title: 'dashboard index', menu: false } },
+      {
+        path: 'index',
+        name: 'dashboardIndex',
+        meta: { title: 'index', menu: true },
+        component: () => import('@/views/dashboard/index.vue')
+      },
+      {
+        path: 'recharge-platform',
+        name: 'rechargePlatform',
+        meta: { title: 'Recharge platform', menu: true },
+        component: () => import('@/views/dashboard/rechargePlatform.vue')
+      },
+      {
+        path: 'recharge-merchant',
+        name: 'rechargeMerchant',
+        meta: { title: 'Recharge merchant', menu: true },
+        component: () => import('@/views/dashboard/rechargeMerchant.vue')
+      },
+      {
+        path: 'transaction-management',
+        name: 'transactionManagement',
+        meta: { title: 'Transaction management', menu: true },
+        component: () => import('@/views/dashboard/transactionManagement.vue')
+      },
+      {
+        path: 'recharge-details',
+        name: 'rechargeDetails',
+        meta: { title: 'Recharge details', menu: false }, 
+        component: () => import('@/views/dashboard/RechargeDetails.vue')
+      },
+    ]
+  },
   {
     path: '/merchants',
     name: 'merchants',
@@ -46,39 +84,6 @@ export const asyncRouterMap = [
         meta: { title: 'audit merchant accounts', menu: false },
         component: () => import('@/views/merchants/audit.vue')
       }
-    ]
-  },
-  {
-    path: '/dashboard',
-    name: 'dashboard',
-    meta: { title: 'dashboard', menu: true },
-    component: layout,
-    children: [
-      { path: '', redirect: '/dashboard/index', meta: { title: 'dashboard index', menu: false } },
-      {
-        path: 'index',
-        name: 'dashboardIndex',
-        meta: { title: 'index', menu: true },
-        component: () => import('@/views/dashboard/index.vue')
-      },
-      {
-        path: 'rechargeOpay',
-        name: 'rechargeOpay',
-        meta: { title: 'Top up for OPay', menu: false },
-        component: () => import('@/views/dashboard/rechargeOpay.vue')
-      },
-      {
-        path: 'rechargeUser',
-        name: 'rechargeUser',
-        meta: { title: 'Top up for OPay', menu: false },
-        component: () => import('@/views/dashboard/rechargeUser.vue')
-      }
-      // {
-      //   path: 'details',
-      //   name: 'KYCdetails',
-      //   meta: { title: 'KYC details', menu: false },
-      //   component: () => import('@/views/KYC/details.vue')
-      // }
     ]
   },
   {
@@ -120,13 +125,6 @@ export const asyncRouterMap = [
 ]
 
 export const defaultRouter = [
-  // {
-  //   path: '/403',
-  //   name: '403',
-  //   meta: { title: '403', menu: false },
-  //   hidden: true,
-  //   component: page403
-  // },
   {
     path: '/:catchAll(.*)',
     name: '404',

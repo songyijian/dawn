@@ -44,7 +44,7 @@ export const POST_merchantRetireList = (data = {}) => axios.post('/cmapi/manage/
 
 export const POST_merchantApprovalInfo = (data = {}) => axios.post('/cmapi/manage/merchant/approval/info', data)
 
-export const POST_merchantRechargeList = (data = {}) => axios.post('/cmapi/manage/merchant/recharge/list', data)
+// export const POST_merchantRechargeList = (data = {}) => axios.post('/cmapi/manage/merchant/recharge/list', data)
 
 export const POST_merchantCreate = (data = {}) => axios.post('/cmapi/manage/merchant/create', data)
 
@@ -85,7 +85,7 @@ export const POST_merchantFreeze = (data = {}) => axios.post('/cmapi/manage/merc
 
 export const POST_merchantUnfreeze = (data = {}) => axios.post('/cmapi/manage/merchant/unfreeze', data) // 解冻结
 
-export const POST_merchantTradeReq = (data = {}) => axios.post('/cmapi/manage/db/merchant/trade/info', data) // 解冻结
+export const POST_merchantTradeReq = (data = {}) => axios.post('/cmapi/manage/db/merchant/trade/info', data)
 
 /*
 文件上传
@@ -100,3 +100,116 @@ export const POST_DashboardAppOrderList = (data = {}) => axios.post('/cmapi/mana
 export const POST_DashboardPlatformTradeInfo = (data = {}) => axios.post('/cmapi/manage/db/platform/trade/info', data)
 
 export const POST_DashboardPlatformRecharge = (data = {}) => axios.post('/cmapi/manage/db/platform/recharge', data)
+
+export const POST_MerchantRechargeListReq = (data = {}) => axios.post('/cmapi/manage/db/merchant/recharge/list', data)
+
+export const POST_DashboardRechargeDetail = (data = {}) => axios.post('/cmapi/manage/db/platform/recharge/detail', data)
+
+export const POST_DashboardPlatformRechargeList = (data = {}) => axios.post('/cmapi/manage/db/platform/recharge/list', data)
+
+// export const POST_DashboardMerchantSearchReq = (data = {}) => axios.post('/cmapi/manage/db/merchant/search', data) // 接口失败，通过手机搜索商户
+export const POST_DashboardMerchantSearchReq =()=> Promise.resolve({
+    "code": 0,
+    "message": "success",
+    "data": {
+      "merchant": {
+        "id": 7,
+        "app_user_id": "",
+        "merchant_role": 1,
+        "name": "dylan",
+        "business_description": "eee",
+        "business_type": "fff",
+        "merchant_province": "",
+        "merchant_city": "",
+        "lng": 3.2,
+        "lat": 4.3,
+        "store_address": "store_address",
+        "business_time": "ggg",
+        "email": "dylan@sina.com",
+        "mobile": "+260123456783",
+        "first_name": "aaa",
+        "last_name": "bbb",
+        "gender": 0,
+        "user_province": "",
+        "user_city": "",
+        "user_address": "ccc",
+        "id_type": 0,
+        "id_number": "111",
+        "birthday": "2001-01-01",
+        "recommend_code": "ddd",
+        "recommend_pics": [
+          "aaa",
+          "bbb"
+        ],
+        "id_pics": [
+          "aaa",
+          "bbb"
+        ],
+        "expense_bill_pics": [
+          "aaa",
+          "bbb"
+        ],
+        "store_pics": [
+          "aaa",
+          "bbb"
+        ],
+        "approval_status": 101,
+        "stage": 1,
+        "current_approval_id": 13,
+        "freeze_expire_date": 0,
+        "register_time": 0,
+        "register_id": 195,
+        "create_time": 1639481825,
+        "update_time": 1639481825,
+        "applicant_id": 195,
+        "application_time": 1639481825,
+        "manager_id": 0,
+        "approval_time": 0,
+        "kyc_level": 0
+      },
+      "trade_info": {
+        "account_balance": 9999999,
+        "usable_balance": 0,
+        "trading_num": 0,
+        "agent_num": 0
+      }
+    }
+  }
+  )
+
+export const POST_DashboardMerchantRechargeReq = (data = {}) => axios.post('/cmapi/manage/db/merchant/recharge', data)
+
+export const POST_RechargeDetailReq = (data = {}) => axios.post('/cmapi/manage/db/merchant/recharge/detail', data)
+
+export const POST_SendOtpReq = (data = {}) => axios.post('/cmapi/manage/db/send/otp', data)
+
+export const POST_RechargeApproveReq = (data = {}) => axios.post('/cmapi/manage/db/merchant/recharge/approve', data)
+
+
+
+
+// 6.2 首页商户交易流水
+// POST /manage/db/merchant/recharge/list
+
+
+// 交易流水页不要。
+
+// 首页的交易流水保留
+// 首页商户交易流水
+// POST /manage/db/merchant/recharge/list  参数为空
+
+
+// 交易管理页面的list
+// 复用首页的，首页商户交易流水
+// POST /manage/db/merchant/recharge/list  
+
+// 交易管理，详情
+// 6.8 商户充值交易详情
+// POST /manage/db/merchant/recharge/detail
+
+
+// 审核
+// 6.9 商户充值审核 审批状态(1 通过 -1 驳回)
+// POST /manage/db/merchant/recharge/approve
+
+

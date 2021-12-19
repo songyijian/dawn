@@ -6,67 +6,84 @@
 -->
 
 <template>
-  <el-row :gutter="20" v-if="config.tradeReq">
-    <el-col :span="8" class="card-box">
-      <h3>账户余额</h3>
-      <strong>{{ config.tradeReq.account_balance }}</strong>
-    </el-col>
-    <el-col :span="8" class="card-box">
-      <h3>交易量</h3>
-      <strong>{{ config.tradeReq.trans_num }}</strong>
-    </el-col>
-    <el-col :span="8" class="card-box">
-      <h3>代理数</h3>
-      <strong>{{ config.tradeReq.agent_num }}</strong>
-    </el-col>
-    <!-- <el-col :span="8" class="card-box">
-      <h3>可用余额</h3>
-      <strong>{{ config.tradeReq.usable_balance }}</strong>
-    </el-col> -->
-  </el-row>
+  <TradeInfo :data="mydata.tradeReq"></TradeInfo>
+  <div>
+    <h3>交易流水</h3>
+    <el-table :data="mydata.rechargeList || []" style="width: 100%">
+      <el-table-column label="充值到账时间">
+        <template #default="scope">
+          {{ scope.row.create_time }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="amount" label="充值金额" />
+      <el-table-column prop="merchant_id" label="商户ID" />
+      <el-table-column prop="create_time" label="申请时间" />
+      <el-table-column label="状态">
+        <template #default="scope">
+          {{ RECHARGE_STATUS[scope.row.approval_status] }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="accruing_amount" label="累计充值金额" />
+      <!-- <el-table-column label="View">
+        <template #default="scope">
+          <el-button type="text" @click="view(scope.row)">View</el-button>
+        </template>
+      </el-table-column> -->
+    </el-table>
 
-  <h3>交易流水</h3>
-  <div>{{ config }}</div>
+    <el-pagination
+      layout="prev, pager, next"
+      v-model:page-size="page_size"
+      v-model:current-page="mydata.page"
+      :total="total"
+    ></el-pagination>
+  </div>
 </template>
 
-<script>
-//组件script
-import { SortUp, SortDown } from '@element-plus/icons'
-export default {
-  components: {
-    SortDown,
-    SortUp
-  }
-}
-</script>
-
 <script setup>
-import { reactive, ref } from '@vue/reactivity'
-import { POST_merchantTradeReq } from '@/api'
-import { watch } from 'vue-demi'
+import TradeInfo from "@/components/TradeInfo.vue";
+import { reactive, ref } from "@vue/reactivity";
+import { POST_merchantTradeReq, POST_MerchantRechargeListReq } from "@/api";
+import { watch } from "vue-demi";
+import { RECHARGE_STATUS } from "@/utils/treatymap.js";
 
+const total = ref(0);
+const page_size = ref(10);
 const config = reactive({
-  tradeReq: null
-})
+  page: 1, // int32  当前页码
+});
+
+const mydata = reactive({
+  rechargeList: null,
+  tradeReq: null,
+});
 
 const props = defineProps({
-  id: String
-})
+  id: String,
+});
 
-const merchant_id = Number(props.id)
-const query = async type => {
-  const { code, data, message } = await POST_merchantTradeReq({ merchant_id })
-  console.log(code, data, message)
+const merchant_id = Number(props.id);
+const query = async (type) => {
+  const { code, data, message } = await POST_merchantTradeReq({ merchant_id });
+  console.log(code, data, message);
   if (!code) {
-    config.tradeReq = data
-
-    // const { merchant, current_approval } = data
-    // config.merchant = merchant
-    // config.current_approval = current_approval
+    mydata.tradeReq = data;
   }
-}
+};
 
-query()
+const queryList = async () => {
+  const { code, data } = await POST_MerchantRechargeListReq(config);
+  if (!code) {
+    mydata.rechargeList = data.recharge_data;
+    total.value = data.pagination.total;
+    page_size.value = data.pagination.page_size;
+  }
+};
+
+watch(() => config.page, queryList);
+
+queryList();
+query();
 </script>
 
 <style lang="scss" scoped>

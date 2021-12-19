@@ -79,11 +79,16 @@
     </el-row>
 
     <el-button type="primary" @click="showApprove">Approve</el-button>
-    <el-button type="primary" @click="mydata.rejectDialog = true">Reject</el-button>
-    <el-button type="primary" @click="back">Back</el-button>
+    <el-button type="primary" @click="mydata.rejectDialog = true"
+      >Reject</el-button
+    >
+    <el-button @click="back">Back</el-button>
   </div>
 
-  <el-dialog v-model="mydata.rejectDialog" title="Are you sure you want to reject this KYC upgrade application?">
+  <el-dialog
+    v-model="mydata.rejectDialog"
+    title="Are you sure you want to reject this KYC upgrade application?"
+  >
     <template #default>
       <el-form ref="rejectForm" :model="mydata">
         <el-form-item :rules="verify('required')" prop="rejectDesc">
@@ -101,70 +106,76 @@
 </template>
 
 <script setup>
-import { useRoute, useRouter } from 'vue-router'
-import { POST_kycView, POST_kycPass, POST_kycReject } from '@/api'
-import { reactive, ref } from '@vue/reactivity'
-import { onMounted } from '@vue/runtime-core'
-import { ElMessageBox, ElMessage } from 'element-plus'
-import { verify } from '@/utils/tools.validate.js'
-import { KEY_CHECK_STATUS } from '@/utils/treatymap.js'
-import { fFullTime } from '@/utils/tools.js'
+import { useRoute, useRouter } from "vue-router";
+import { POST_kycView, POST_kycPass, POST_kycReject } from "@/api";
+import { reactive, ref } from "@vue/reactivity";
+import { onMounted } from "@vue/runtime-core";
+import { ElMessageBox, ElMessage } from "element-plus";
+import { verify } from "@/utils/tools.validate.js";
+import { KEY_CHECK_STATUS } from "@/utils/treatymap.js";
+import { fFullTime } from "@/utils/tools.js";
 
 const mydata = reactive({
-  rejectDesc: '',
-  rejectDialog: false
-})
-const info = ref(null)
-const rejectForm = ref(null)
-const router = useRouter()
-const { id } = useRoute().query
-const application_id = Number(id)
+  rejectDesc: "",
+  rejectDialog: false,
+});
+const info = ref(null);
+const rejectForm = ref(null);
+const router = useRouter();
+const { id } = useRoute().query;
+const application_id = Number(id);
 
 const back = () => {
   // router.replace({ path: '/KYC/list' })
-  router.go(-1)
-}
+  router.go(-1);
+};
 
 const approve = async () => {
   const { code } = await POST_kycPass({
-    application_id
-  })
+    application_id,
+  });
   if (!code) {
-    ElMessage.warning(message)
-    back()
+    ElMessage.warning(message);
+    back();
   }
-}
+};
 
 const query = async () => {
   const { code, data } = await POST_kycView({
-    application_id
-  })
+    application_id,
+  });
   if (!code) {
-    info.value = data
+    info.value = data;
   }
-}
+};
 
 const reject = async () => {
   if (!mydata.rejectDesc) {
-    rejectForm.value.validate(() => {})
-    return
+    rejectForm.value.validate(() => {});
+    return;
   }
 
-  const { code, data, message } = await POST_kycReject({ application_id, reject_desc: mydata.rejectDesc })
+  const { code, data, message } = await POST_kycReject({
+    application_id,
+    reject_desc: mydata.rejectDesc,
+  });
   if (!data) {
-    ElMessage.warning(message)
-    mydata.rejectDialog = false
+    ElMessage.warning(message);
+    mydata.rejectDialog = false;
   }
-}
+};
 
 const showApprove = () => {
-  ElMessageBox.confirm('Are you sure you want to approve this KYC upgrade application?', {
-    confirmButtonText: 'Confirm',
-    cancelButtonText: 'Cancel'
-  }).then(approve)
-}
+  ElMessageBox.confirm(
+    "Are you sure you want to approve this KYC upgrade application?",
+    {
+      confirmButtonText: "Confirm",
+      cancelButtonText: "Cancel",
+    }
+  ).then(approve);
+};
 
-onMounted(query)
+onMounted(query);
 </script>
 
 <style lang="scss" scoped>
