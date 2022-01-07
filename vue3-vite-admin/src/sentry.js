@@ -30,32 +30,31 @@ function routerFilter(r, rmap) {
   })
 }
 
-GET_meInfo().then(({ code, data, message }) => {
-  if (!code) {
-    const { permissions, roles, user, perms } = data
+//  登录时做权限校验
+// GET_meInfo().then(({ code, data, message }) => {
+//   if (!code) {
+//     const { permissions, roles, user, perms } = data
 
-    // var rolesRouter = asyncRouterMap
-    // asyncRouterMap.forEach(router.addRoute)
+//     // var rolesRouter = asyncRouterMap
+//     // asyncRouterMap.forEach(router.addRoute)
 
-    const rmap = hasRouterMap(perms)
-    const rolesRouter = routerFilter(asyncRouterMap, rmap)
-    rolesRouter.forEach(router.addRoute)
-    store.commit('SET_ROUTERS', rolesRouter)
-    store.commit('SET_USER_INFO', user)
-    store.commit('SET_USER_PERMISSIONS', permissions)
-    store.commit('SET_USER_ROLES', roles)
+//     const rmap = hasRouterMap(perms)
+//     const rolesRouter = routerFilter(asyncRouterMap, rmap)
+//     rolesRouter.forEach(router.addRoute)
+//     store.commit('SET_ROUTERS', rolesRouter)
+//     store.commit('SET_USER_INFO', user)
+//     store.commit('SET_USER_PERMISSIONS', permissions)
+//     store.commit('SET_USER_ROLES', roles)
 
-    const nowPath = location.hash.slice(1)
-    const nowSrc = nowPath.split('?')[0]
-    const query = getURLParams(nowPath)
-    const isexist = router.getRoutes().some(item => item.path === nowSrc)
+//     const nowPath = location.hash.slice(1)
+//     const nowSrc = nowPath.split('?')[0]
+//     const query = getURLParams(nowPath)
+//     const isexist = router.getRoutes().some(item => item.path === nowSrc)
 
-    const _toPath = { path: !isexist ? rolesRouter[0].path : nowPath }
-    query && (_toPath.query = query)
-    router.replace(_toPath)
-  } else {
-    router.replace({ path: '/404' })
-  }
-})
-
-store.commit('SET_USER_INFO', [])
+//     const _toPath = { path: !isexist ? rolesRouter[0].path : nowPath }
+//     query && (_toPath.query = query)
+//     router.replace(_toPath)
+//   } else {
+//     router.replace({ path: '/404' })
+//   }
+// })

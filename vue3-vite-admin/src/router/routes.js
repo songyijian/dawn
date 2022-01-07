@@ -59,13 +59,11 @@ export const defaultRouter = [
   }
 ]
 
+// 实验结果
+import troutes from '@/views/__test__/router.js'
 if (process.env.NODE_ENV === 'development') {
-  const test = () => import('@/views/_test_.vue')
-  defaultRouter.push({
-    path: '/_test_',
-    name: 'test',
-    meta: { title: 'test', menu: false },
-    component: test
+  troutes.forEach(element => {
+    defaultRouter.push(element)
   })
 }
 

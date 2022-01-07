@@ -6,20 +6,26 @@
 -->
 
 <template>
-  <div ref="dev">xxxx</div>
-
-  <el-form ref="form" label-width="80px"></el-form>
+  <div ref="testref">11111</div>
 </template>
 
 <script setup>
 // import axios from '@/plugins/axios'
+
 // const mydata = {
 //   merchant_id: undefined
 // }
+
+// import './router.js'
+
+// import { ref } from 'vue-demi'
 
 // async function subTZ(params) {
 //   await axios.post('/cmapi/test/retire/pending', {
 //     merchant_id: mydata.merchant_id
 //   })
 // }
+
+// const a = ref(form)
+// console.log(a)
 </script>
