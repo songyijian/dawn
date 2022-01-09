@@ -1,9 +1,4 @@
-/*
- * @Description:
- * @Author: yijian
- * @Version: 0.1.0
- * @Date: 2022-01-07 16:32:57
- */
+
 /*
  * @Description: test router config 和生产无关
  * @Author: yijian
