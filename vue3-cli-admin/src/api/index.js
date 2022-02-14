@@ -25,9 +25,25 @@ export const GET_roleList = () => axios.get('/cmapi/manage/sys/role/list')
 export const GET_tree = () => axios.get('/cmapi/manage/sys/menu/tree')
 
 /*
+KYC管理
+*/
+
+export const POST_kycAppList = (data = {}) =>
+  axios.post('/cmapi/manage/kyc/application/list', data)
+
+export const POST_kycView = (data = {}) =>
+  axios.post('/cmapi/manage/kyc/application/view', data)
+
+export const POST_kycPass = (data = {}) =>
+  axios.post('/cmapi/manage/kyc/application/pass', data)
+
+export const POST_kycReject = (data = {}) =>
+  axios.post('/cmapi/manage/kyc/application/reject', data)
+
+/*
 文件上传
 */
-export const POST_uploadImage = data =>
+export const POST_uploadImage = (data) =>
   axios.post('/cmapi/manage/upload/form/image', data, {
     headers: { 'Content-Type': 'multipart/form-data' }
   })

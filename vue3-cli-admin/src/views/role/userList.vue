@@ -143,7 +143,7 @@ import {
 import { reactive, ref } from '@vue/reactivity'
 import { watch } from '@vue/runtime-core'
 import { verify } from '@/utils/tools.validate.js'
-import { timeStyle, delByVal } from '@/utils/tools.js'
+import { delByVal } from '@/utils/tools.js'
 import { ROLE_STATUS } from '@/utils/treatymap.js'
 
 const myform = ref(null)
@@ -166,7 +166,7 @@ const mydata = reactive({
   roleList: []
 })
 
-const query = async type => {
+const query = async (type) => {
   config.page = type === 'search' ? 1 : config.page
   const res = delByVal(
     {
@@ -175,7 +175,7 @@ const query = async type => {
     },
     ['', undefined]
   )
-  const { code, data, message } = await POST_userlist(res)
+  const { code, data } = await POST_userlist(res)
   if (!code) {
     total.value = data.total
     mydata.tableData = data.records
@@ -183,7 +183,7 @@ const query = async type => {
 }
 
 const queryRoleList = async () => {
-  const { code, data, message } = await GET_roleList()
+  const { code, data } = await GET_roleList()
   if (!code) mydata.roleList = data
 }
 
@@ -197,7 +197,7 @@ const dele = async () => {
 }
 
 const edit = async () => {
-  editform.value.validate(async s => {
+  editform.value.validate(async (s) => {
     if (s) {
       const { id, name, status, roles } = mydata.editData
       const resData = {
@@ -215,8 +215,8 @@ const edit = async () => {
   })
 }
 
-const showEdit = data => {
-  const roles = data.roles ? data.roles.map(item => item.id) : []
+const showEdit = (data) => {
+  const roles = data.roles ? data.roles.map((item) => item.id) : []
   mydata.editData = { ...data.user, roles }
   mydata.dialogTableVisible = true
 }

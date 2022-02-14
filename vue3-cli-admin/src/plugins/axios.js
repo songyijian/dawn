@@ -11,7 +11,7 @@ export const loginRedirect = () => {
   }
 }
 
-const lodingCount = logger(n => store.commit('SET_AJAX_LODING', !!n))
+const lodingCount = logger((n) => store.commit('SET_AJAX_LODING', !!n))
 
 const _axios = http.create({
   // baseURL: "",
@@ -22,12 +22,12 @@ const _axios = http.create({
   timeout: 60000
 })
 
-const request = config => {
+const request = (config) => {
   lodingCount.up()
   return config
 }
 
-const requestError = error => Promise.reject(error)
+const requestError = (error) => Promise.reject(error)
 
 const response = ({ data: res }) => {
   lodingCount.down()
@@ -35,14 +35,14 @@ const response = ({ data: res }) => {
   return res
 }
 
-const responseError = error => {
+const responseError = (error) => {
   lodingCount.down()
   ElMessage.error(error.toString())
   return Promise.reject(error.response || error)
 }
 
-const ajaxShowMessage = res => {
-  const { code, data, message } = res
+const ajaxShowMessage = (res) => {
+  const { code, message } = res
   code && ElMessage.error(code + ' : ' + message)
   return res
 }
@@ -52,12 +52,12 @@ _axios.interceptors.response.use(response, responseError)
 _axios.interceptors.response.use(ajaxShowMessage)
 
 const axiosPlugins = {
-  install: app => {
+  install: (app) => {
     app.config.globalProperties.$axios = _axios
   }
 }
 
-export const installAxios = app => {
+export const installAxios = (app) => {
   app.use(axiosPlugins)
   return app
 }

@@ -14,13 +14,13 @@
     router
     :collapse="false"
   >
-    <template v-for="item in routers" :key="item">
-      <el-sub-menu v-if="item.meta.menu" :index="item.path">
+    <template v-for="item in routers" :key="item.path">
+      <el-sub-menu v-if="item.meta?.menu" :index="item.path">
         <template #title>
           <span>{{ item.meta.title }}</span>
         </template>
         <el-menu-item-group v-if="item.children">
-          <template v-for="citem in item.children" :key="citem">
+          <template v-for="citem in item.children" :key="citem.path">
             <el-menu-item
               v-if="citem.meta.menu"
               :index="item.path + '/' + citem.path"
@@ -35,9 +35,10 @@
 </template>
 
 <script setup>
+import { computed } from 'vue-demi'
 import { useStore } from 'vuex'
 const store = useStore()
-const routers = store.state.routers
+const routers = computed(() => store.state.routers)
 </script>
 
 <style lang="scss" scoped>

@@ -16,29 +16,30 @@ export const vfn = {
   int32: _types.isInteger,
   int64: _types.isInteger,
   email: _types.isEmail,
-  arryRepeatedString: o =>
-    _types.isArray(o) && o.every(i => _types.isString(i)),
+  arryRepeatedString: (o) =>
+    _types.isArray(o) && o.every((i) => _types.isString(i)),
   double: _types.isNumber
 }
 
-const vGPS = { type: 'number', min: -90, max: 90 }
-
 const vmap = {
-  required: { required: true, message: 'is required' },
+  required: { required: true, message: 'is required', trigger: 'blur' },
   money: {
     pattern: /^\d+(\.\d{1,2})?$/,
-    message: 'It should be greater than 0 and accurate to two decimal places.'
+    message: 'It should be greater than 0 and accurate to two decimal places.',
+    trigger: 'blur'
   },
   ID: {
     pattern: /^\d{9}$/,
-    message: 'format error'
+    message: 'format error',
+    trigger: 'blur'
   },
   mobile: {
     pattern: /^(\+260|260|0)?(77|76|95|96|97)\d{7}$/,
-    message: 'format error'
+    message: 'format error',
+    trigger: 'blur'
   },
-  GPSlat: vGPS,
-  GPSlng: vGPS
+  GPSlat: { type: 'number', min: -90, max: 90, trigger: 'blur' },
+  GPSlng: { type: 'number', min: -180, max: 180, trigger: 'blur' }
 }
 
 function validator(_type) {
@@ -53,10 +54,24 @@ function validator(_type) {
   }
 }
 
-export const verify = (...type) =>
-  type.map(item => (vmap[item] ? vmap[item] : { validator: validator(item) }))
+function trimTip(rule, value, callback) {
+  const oringinValue = value
+  let beRightValue = value
+  console.log(_types.isString(beRightValue), value, rule)
+  if (!beRightValue.trim) return callback()
+  if (beRightValue.trim().length == oringinValue.length) return callback()
+  return callback(new Error('Space is not allowed at the beginning and end.'))
+}
 
-export const validateToAsync = async validate =>
+export const verify = (...type) => {
+  let emap = type.map((item) =>
+    vmap[item] ? vmap[item] : { validator: validator(item), trigger: 'blur' }
+  )
+  // 校验手动录入的表单前后不能有空格,整个系统需要校验
+  return [{ validator: trimTip, trigger: 'blur' }, ...emap]
+}
+
+export const validateToAsync = async (validate) =>
   new Promise((resolve, reject) => {
-    validate(status => (status ? resolve(status) : reject(status)))
+    validate((status) => (status ? resolve(status) : reject(status)))
   })

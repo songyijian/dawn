@@ -20,7 +20,7 @@ const config = {
   css: {
     loaderOptions: {
       scss: {
-        prependData: `@import "src/assets/styles/_variable.scss";`
+        prependData: '@import "src/assets/styles/_variable.scss";'
       }
     }
   },
@@ -30,11 +30,10 @@ const config = {
     https: false,
     proxy: {
       '/cmapi': {
-        bypass: (req, res) => {
-          req.headers.referer =
-            'https://dev-westafrica-cm-web.frontends.opayweb.com/'
+        bypass: (req) => {
+          // req.headers.referer = 'xxxx'
         },
-        target: 'https://zm-admin-api-test.opayweb.com/',
+        target: 'https://xxxx.com/',
         resure: false,
         changeOrigin: true,
         pathRewrite: {

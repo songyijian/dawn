@@ -6,20 +6,28 @@
 -->
 
 <template>
-  <div ref="dev">xxxx</div>
+  {{ mydata }}
 
-  <el-form ref="form" label-width="80px"></el-form>
+  <div>
+    <div class="tip">审核通过状态能转退驻待审核</div>
+    <el-input-number
+      v-model="mydata.merchant_id"
+      label="merchant_id"
+    ></el-input-number>
+
+    <el-button type="primary" @click="subTZ">改退驻待审核</el-button>
+  </div>
 </template>
 
 <script setup>
-// import axios from '@/plugins/axios'
-// const mydata = {
-//   merchant_id: undefined
-// }
+import axios from '@/plugins/axios'
+const mydata = {
+  merchant_id: undefined
+}
 
-// async function subTZ(params) {
-//   await axios.post('/cmapi/test/retire/pending', {
-//     merchant_id: mydata.merchant_id
-//   })
-// }
+async function subTZ() {
+  await axios.post('/cmapi/test/retire/pending', {
+    merchant_id: mydata.merchant_id
+  })
+}
 </script>

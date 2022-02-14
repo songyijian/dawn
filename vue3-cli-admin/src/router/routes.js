@@ -9,6 +9,26 @@ const layout = () => import('@/views/layout/index.vue')
 
 export const asyncRouterMap = [
   {
+    path: '/KYC',
+    name: 'KYC',
+    meta: { title: 'KYC management', menu: true },
+    component: layout,
+    children: [
+      {
+        path: 'list',
+        name: 'KYClist',
+        meta: { title: 'KYC list', menu: true },
+        component: () => import('@/views/KYC/list.vue')
+      },
+      {
+        path: 'details',
+        name: 'KYCdetails',
+        meta: { title: 'KYC details', menu: false },
+        component: () => import('@/views/KYC/details.vue')
+      }
+    ]
+  },
+  {
     path: '/role',
     name: 'role',
     meta: { title: 'Authority management', menu: true },
@@ -17,7 +37,11 @@ export const asyncRouterMap = [
       {
         path: 'list',
         name: 'roleUserlist',
-        meta: { title: 'User list', menu: true },
+        meta: {
+          title: 'User list',
+          menu: true
+          // btns: ['Edit', 'Delete']
+        },
         component: () => import('@/views/role/userList.vue')
       }
     ]
@@ -42,7 +66,5 @@ if (process.env.NODE_ENV === 'development') {
     component: test
   })
 }
-
-export const allRouter = [...defaultRouter, ...asyncRouterMap]
 
 export default defaultRouter
