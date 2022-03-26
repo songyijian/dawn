@@ -11,14 +11,14 @@
 </template>
 
 <script setup>
-// import axios from '@/plugins/axios'
-// const mydata = {
-//   merchant_id: undefined
-// }
+import axios from '@/plugins/axios'
+const mydata = {
+  merchant_id: undefined
+}
 
-// async function subTZ(params) {
-//   await axios.post('/cmapi/test/retire/pending', {
-//     merchant_id: mydata.merchant_id
-//   })
-// }
+async function subTZ() {
+  await axios.post('/cmapi/test/retire/pending', {
+    merchant_id: mydata.merchant_id
+  })
+}
 </script>

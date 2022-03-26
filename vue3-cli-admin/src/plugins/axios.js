@@ -9,7 +9,11 @@ export const loginRedirect = () => {
   }
 };
 
+<<<<<<< HEAD
 const lodingCount = logger((n) => store.commit("SET_AJAX_LODING", !!n));
+=======
+const lodingCount = logger((n) => store.commit('SET_AJAX_LODING', !!n))
+>>>>>>> 95276452e1b425196a95c21eb7303c69c17f27d9
 
 const _axios = http.create({
   // baseURL: "",
@@ -21,11 +25,19 @@ const _axios = http.create({
 });
 
 const request = (config) => {
+<<<<<<< HEAD
   lodingCount.up();
   return config;
 };
 
 const requestError = (error) => Promise.reject(error);
+=======
+  lodingCount.up()
+  return config
+}
+
+const requestError = (error) => Promise.reject(error)
+>>>>>>> 95276452e1b425196a95c21eb7303c69c17f27d9
 
 const response = ({ data: res }) => {
   lodingCount.down();
@@ -34,6 +46,7 @@ const response = ({ data: res }) => {
 };
 
 const responseError = (error) => {
+<<<<<<< HEAD
   lodingCount.down();
   ElMessage.error(error.toString());
   return Promise.reject(error.response || error);
@@ -44,6 +57,18 @@ const ajaxShowMessage = (res) => {
   code && ElMessage.error(code + " : " + message);
   return res;
 };
+=======
+  lodingCount.down()
+  ElMessage.error(error.toString())
+  return Promise.reject(error.response || error)
+}
+
+const ajaxShowMessage = (res) => {
+  const { code, message } = res
+  code && ElMessage.error(code + ' : ' + message)
+  return res
+}
+>>>>>>> 95276452e1b425196a95c21eb7303c69c17f27d9
 
 _axios.interceptors.request.use(request, requestError);
 _axios.interceptors.response.use(response, responseError);
@@ -51,6 +76,7 @@ _axios.interceptors.response.use(ajaxShowMessage);
 
 const axiosPlugins = {
   install: (app) => {
+<<<<<<< HEAD
     app.config.globalProperties.$axios = _axios;
   },
 };
@@ -59,5 +85,15 @@ export const installAxios = (app) => {
   app.use(axiosPlugins);
   return app;
 };
+=======
+    app.config.globalProperties.$axios = _axios
+  }
+}
+
+export const installAxios = (app) => {
+  app.use(axiosPlugins)
+  return app
+}
+>>>>>>> 95276452e1b425196a95c21eb7303c69c17f27d9
 
 export default _axios;

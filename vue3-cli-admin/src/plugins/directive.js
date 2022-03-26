@@ -6,9 +6,9 @@
  */
 import store from '@/store/index.js'
 
-export default app => {
+export default (app) => {
   app.directive('has', {
-    mounted(el, binding, vnode) {
+    mounted(el, binding) {
       let val = binding.value
       const status = store.state.pageBtnControl.has(val)
       if (!status) el.remove()

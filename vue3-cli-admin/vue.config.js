@@ -20,9 +20,9 @@ const config = {
   css: {
     loaderOptions: {
       scss: {
-        prependData: `@import "src/assets/styles/_variable.scss";`,
-      },
-    },
+        prependData: '@import "src/assets/styles/_variable.scss";'
+      }
+    }
   },
   devServer: {
     host: "0.0.0.0",

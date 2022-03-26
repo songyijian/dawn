@@ -47,7 +47,7 @@ const emit = defineEmits(['beforeUploader', 'uploaderCallback'])
 
 const fileInput = ref(null)
 
-const setReqData = file => {
+const setReqData = (file) => {
   let fd = new FormData()
   fd.append('file', file[0])
   return fd
@@ -58,7 +58,7 @@ const onSelectFile = () => {
   fileInput.value.click()
 }
 
-const onUploader = async event => {
+const onUploader = async (event) => {
   let files = event.target.files
   if (!files[0]) return
   var req = setReqData(files)

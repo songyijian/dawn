@@ -22,12 +22,11 @@ export const POST_userEdit = (data = {}) =>
 
 export const GET_roleList = () => axios.get('/cmapi/manage/sys/role/list')
 
-export const GET_tree = () => axios.get('/cmapi/manage/sys/menu/tree')
 
 /*
 文件上传
 */
-export const POST_uploadImage = data =>
+export const POST_uploadImage = (data) =>
   axios.post('/cmapi/manage/upload/form/image', data, {
     headers: { 'Content-Type': 'multipart/form-data' }
   })

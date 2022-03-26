@@ -8,6 +8,7 @@ const page404 = () => import('@/views/error/404.vue')
 const layout = () => import('@/views/layout/index.vue')
 
 export const asyncRouterMap = [
+  
   {
     path: '/role',
     name: 'role',
@@ -17,7 +18,11 @@ export const asyncRouterMap = [
       {
         path: 'list',
         name: 'roleUserlist',
-        meta: { title: 'User list', menu: true },
+        meta: {
+          title: 'User list',
+          menu: true
+          // btns: ['Edit', 'Delete']
+        },
         component: () => import('@/views/role/userList.vue')
       }
     ]
@@ -42,7 +47,5 @@ if (process.env.NODE_ENV === 'development') {
     component: test
   })
 }
-
-export const allRouter = [...defaultRouter, ...asyncRouterMap]
 
 export default defaultRouter
