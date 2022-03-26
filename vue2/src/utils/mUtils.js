@@ -182,20 +182,3 @@ export const isMobile = {
     return this.Android() || this.BlackBerry() || this.iOS() || this.Windows();
   },
 };
-
-// 获取loan渠道参数
-export const getChannelEntrance = () => {
-  const channelEntrance = getStore("loanChannelEntrance") || "";
-  switch (`${channelEntrance}`) {
-    case "1":
-      return "opay_app";
-    case "2":
-      return "merchant_app";
-    case "7":
-      return "business_app";
-    case "4":
-      return "SmartPOS";
-    default:
-      return channelEntrance;
-  }
-};

@@ -7,7 +7,6 @@
 
 <template>
   <div ref="dev">xxxx</div>
-
   <el-form ref="form" label-width="80px"></el-form>
 </template>
 

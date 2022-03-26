@@ -11,7 +11,7 @@
   ],
   "repository": "caz-templates/npm1",
   "license": "MIT",
-  "author": "yijian.song <yijian.song@opay-inc.com> (https://github.com/songyijian)",
+  "author": "yijian.song <397032724@qq.com> (https://github.com/songyijian)",
   "main": "index.js",
   "scripts": {
     "test": "standard --fix && jest"

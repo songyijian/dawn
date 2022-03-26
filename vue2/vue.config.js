@@ -45,7 +45,7 @@ const config = {
     https: false,
     proxy: {
       "/apiBuried": {
-        target: "https://tracking.gateway.opayweb.com/",
+        target: "https://xxxxxx/",
         resure: false,
         changeOrigin: true,
         pathRewrite: {

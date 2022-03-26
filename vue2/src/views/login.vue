@@ -18,10 +18,6 @@
         <div class="logo">
           <!-- <img src="../../assets/img/logo@2x.jpg" alt /> -->
         </div>
-        <!-- <p class="text">
-        LOG IN TO
-        <span class="bold">OPAY DASHBOARD</span>
-      </p> -->
       </div>
       <div class="from-container">
         <div class="item-tips-container">
@@ -79,7 +75,7 @@
         >
 
         <div class="tips-module">
-          <span class="item-label">New to OPay dashboard?</span>
+          <span class="item-label">New to xxx dashboard?</span>
           <span
             class="item-active item-margin"
             @click="handleModuleChange('signup')"
@@ -184,7 +180,7 @@ export default {
 
 <style lang="scss" scoped>
 .login-moudle {
-  background: $opay-color;
+  background: $base-color;
   height: 100%;
   width: 100%;
   display: flex;

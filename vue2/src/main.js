@@ -12,16 +12,6 @@ import "@/assets/style/elui/theme/index.css";
 
 Vue.use(ElementUI);
 
-// if (process.env.NODE_ENV == "development") {
-//   import("../../mock/index.js").then(({ default: opayMock }) => {
-//     opayMock.use({ name: "axios", wrap: axios });
-//     opayMock.use({ name: "Vue", wrap: Vue });
-//     opayMock.use({ name: "router", wrap: router });
-//     opayMock.use({ name: "store", wrap: store });
-//   });
-//   Vue.config.devtools = true;
-// }
-
 Vue.prototype.$bus = new EventBus("VueEventBus");
 Vue.prototype.$axios = axios;
 

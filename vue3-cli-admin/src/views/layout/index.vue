@@ -19,8 +19,8 @@
 </template>
 
 <script setup>
-import Aside from '@/views/layout/Aside.vue'
-import Header from '@/views/layout/Header.vue'
+import Aside from "@/views/layout/Aside.vue";
+import Header from "@/views/layout/Header.vue";
 </script>
 
 <style lang="scss" scoped>
@@ -29,7 +29,7 @@ import Header from '@/views/layout/Header.vue'
 }
 
 .el-header {
-  background-color: $opay-color;
+  background-color: $base-color;
 }
 
 .el-aside {

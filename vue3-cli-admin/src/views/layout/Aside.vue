@@ -6,7 +6,7 @@
 -->
 <template>
   <header>
-    <img src="@/assets/img/opay-logo.png" alt="logo" />
+    <img src="@/assets/img/logo.png" alt="logo" />
   </header>
   <el-menu
     :default-active="$route.path"
@@ -35,9 +35,9 @@
 </template>
 
 <script setup>
-import { useStore } from 'vuex'
-const store = useStore()
-const routers = store.state.routers
+import { useStore } from "vuex";
+const store = useStore();
+const routers = store.state.routers;
 </script>
 
 <style lang="scss" scoped>
@@ -50,7 +50,7 @@ const routers = store.state.routers
 
 header {
   height: 60px;
-  background-color: $opay-color;
+  background-color: $base-color;
 
   img {
     height: 100%;

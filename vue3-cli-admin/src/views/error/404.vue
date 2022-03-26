@@ -7,7 +7,7 @@
 
 <template>
   <div class="page-404">
-    <h2>Page does not exist or you have no access right.</h2>
+    <h2>页面不存在或暂无访问权限 <br/>Page does not exist or you have no access right.</h2>
   </div>
 </template>
 
